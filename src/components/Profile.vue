@@ -12,9 +12,9 @@
           <p>
             <span class='title is-bold'>Paul Miller</span>
             <br>
-            <a class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0'>
-              Edit Profil
-            </a>
+            <router-link to="/addphoto" class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0'>
+              Add pictures
+            </router-link>
             <br>
           </p>
           <p class='tagline'>

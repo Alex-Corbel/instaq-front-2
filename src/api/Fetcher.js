@@ -1,15 +1,20 @@
-const fetchApi = async url => {
-  const response = await fetch(url, {
-    method: "GET",
+const BASE_URL = "";
+
+export const fetchApi = async (method, url) => {
+  const response = await fetch(`${BASE_URL}/${url}`, {
+    method: method,
     headers: {
-      "Content-type": "application/json"
+      "Content-Type": "application/json",
     }
   });
-  if (!response.ok) {
+  if (!response) {
     throw response;
   }
-  return await response.json();
-};
-export const fetchUsersList = async url => {
-  return fetchApi(url);
+  try {
+    return await response.json();
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error("Error parsing JSON, returned nothing", err);
+    return;
+  }
 };

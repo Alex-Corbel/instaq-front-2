@@ -4,28 +4,24 @@
     <router-link class="navbar-item" to="/">
       <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
     </router-link>
-
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
   </div>
 
     <div class="navbar-end">
-      <div class="wrap">
-        <div class="search">
-          <input type="text" class="searchTerm" placeholder="Search">
-          <button type="submit" class="searchButton">
-            <i class="fa fa-search"></i>
-          </button>
+      <div class="field has-addons wrap">
+        <div class="control search">
+          <input class="input" type="text" placeholder="Search username...">
         </div>
-    </div>
+        <div class="control">
+          <a class="button is-white">
+            Search
+          </a>
+        </div>
+      </div>
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary">
+          <router-link to="/signup" class="button is-primary">
             <strong>Sign up</strong>
-          </a>
+          </router-link>
           <a class="button is-light">
             Log in
           </a>
@@ -49,30 +45,6 @@ export default {
 .search {
   width: 100%;
   position: relative
-}
-
-.searchTerm {
-  float: left;
-  width: 100%;
-  border: 3px solid white;
-  padding: 5px;
-  height: 20px;
-  border-radius: 5px;
-  outline: none;
-  color: #9DBFAF;
-}
-
-.searchButton {
-  position: absolute;  
-  right: -50px;
-  width: 40px;
-  height: 36px;
-  border: 1px solid grey;
-  text-align: center;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 20px;
 }
 
 .wrap{
