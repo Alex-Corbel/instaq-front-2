@@ -1,4 +1,4 @@
-const BASE_URL = "";
+const BASE_URL = process.env.BASE_URL || "";
 
 export const fetchApi = async (method, url) => {
   const response = await fetch(`${BASE_URL}/${url}`, {
