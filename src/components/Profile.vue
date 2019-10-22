@@ -1,51 +1,72 @@
 <template>
   <div>
     <header>
-      <div class='section profile-heading'>
-      <div class='columns is-mobile is-multiline'>
-        <div class='column is-2'>
-          <span class='header-icon user-profile-image'>
-            <img v-bind:src="userProfile.avatar">
-          </span>
-        </div>
-        <div class='column is-4-tablet is-10-mobile name'>
-          <p>
-            <span class='title is-bold'>{{ userProfile.firstname }} {{ userProfile.lastname }}</span>
-            <br>
-            <router-link to="/addphoto" class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0'>
-              Ajouter une photo
-            </router-link>
-            <br>
-          </p>
-          <p class='tagline'>
-           {{ userProfile.description }}
-          </p>
-        </div>
-        <div class='column is-2-tablet is-4-mobile has-text-centered'>
-          <p class='stat-val'>30</p>
-          <p class='stat-key'>publications</p>
-        </div>
-        <div class='column is-2-tablet is-4-mobile has-text-centered'>
-          <p class='stat-val'>10</p>
-          <p class='stat-key'>likes</p>
-        </div>
-        <div class='column is-2-tablet is-4-mobile has-text-centered'>
-          <p class='stat-val'>3</p>
-          <p class='stat-key'>friends</p>
+      <div class="section profile-heading">
+        <div class="columns is-mobile is-multiline">
+          <div class="column is-2">
+            <span class="header-icon user-profile-image">
+              <img v-bind:src="userProfile.avatar" />
+            </span>
+          </div>
+          <div class="column is-4-tablet is-10-mobile name">
+            <p>
+              <span class="title is-bold">{{ userProfile.firstname }} {{ userProfile.lastname }}</span>
+              <br />
+              <router-link
+                to="/addphoto"
+                class="button is-primary is-outlined"
+                href="#"
+                id="edit-preferences"
+                style="margin: 5px 0"
+              >Ajouter une photo</router-link>
+              <br />
+            </p>
+            <p class="tagline">{{ userProfile.description }}</p>
+          </div>
+          <div class="column is-2-tablet is-4-mobile has-text-centered">
+            <p class="stat-val">{{userProfile.publicationCount || 0}}</p>
+            <p class="stat-key">Publications</p>
+          </div>
+          <div class="column is-2-tablet is-4-mobile has-text-centered">
+            <p class="stat-val">{{userProfile.followerCount || 0}}</p>
+            <p class="stat-key">Abonnés</p>
+          </div>
+          <div class="column is-2-tablet is-4-mobile has-text-centered">
+            <p class="stat-val">{{userProfile.followingCount || 0}}</p>
+            <p class="stat-key">Abonnements</p>
+          </div>
         </div>
       </div>
-    </div>
     </header>
     <div class="columns is-multiline">
-      <div class="column is-one-quarter-desktop is-half-tablet" v-for="post in userProfile.posts" :key="post.id">
+      <div
+        class="column is-one-quarter-desktop is-half-tablet"
+        v-for="post in userProfile.posts"
+        :key="post.id"
+      >
         <div class="card">
           <div class="card-image">
             <figure class="image is-3by2">
-              <img v-bind:src="post.image" alt />
+              <img v-bind:src="post.image" alt/>
             </figure>
           </div>
         </div>
       </div>
+    </div>
+    <div class="container">
+      <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+          <li v-if="currentPage > 1">
+            <router-link v-bind:to="'/profile/'+ this.$route.params.username + '/' + (currentPage-1)"><a class="pagination-link">{{ (currentPage - 1) }}</a></router-link>
+          </li>
+          <li>
+            <router-link v-bind:to="'/profile/'+ this.$route.params.username + '/' + (currentPage)"><a class="pagination-link is-current" aria-current="page">{{ currentPage }}</a></router-link>
+          </li>
+          <li>
+            <router-link v-bind:to="'/profile/'+ this.$route.params.username + '/' + (currentPage+1)"><a class="pagination-link">{{ (currentPage + 1) }}</a></router-link>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>
@@ -60,18 +81,22 @@ export default {
   },
   data() {
     return {
-      userProfile: {}
-    }
+      userProfile: {},
+      currentPage: 1
+    };
   },
   methods: {
-    async getUserProfile() {
-      this.userProfile = await fetchUserProfile(this.$route.params.username);
+    async getUserProfile(pageIndex) {
+      this.userProfile = await fetchUserProfile(this.$route.params.username, pageIndex);
     }
   },
   mounted() {
     try {
-      this.getUserProfile();
-    } catch(err) {
+      if(this.$route.params.pageindex && this.$route.params.pageindex > 1) {
+        this.currentPage = parseInt(this.$route.params.pageindex);
+      }
+      this.getUserProfile(this.currentPage);
+    } catch (err) {
       throw err;
     }
   }
@@ -101,5 +126,4 @@ export default {
   font-size: 1.4em;
   font-weight: 200;
 }
-
 </style>
