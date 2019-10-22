@@ -1,5 +1,7 @@
-const fetchApi = async (method, url) => {
-  const response = await fetch(`${url}`, {
+const API_URL = "http://localhost:3000";
+
+const fetchApi = async (method, urlParam) => {
+  const response = await fetch(`${API_URL}/${urlParam}`, {
     method: method,
     headers: {
       'Accept': '*/*',
@@ -12,10 +14,7 @@ const fetchApi = async (method, url) => {
     throw response;
   }
   try {
-    const data = await response.json();
-    // eslint-disable-next-line no-console
-    console.log(data);
-    return data;
+    return await response.json();
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error parsing JSON, returned nothing", err);
@@ -24,5 +23,5 @@ const fetchApi = async (method, url) => {
 };
 
 export const fetchNewsFeed = async () => {
-  return await fetchApi("GET", "http://localhost:3000/newsfeed");
+  return await fetchApi("GET", "newsfeed");
 }

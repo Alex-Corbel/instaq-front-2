@@ -40,6 +40,11 @@
       </nav>
       <div class="comments">
         <p v-for="comment in post.comments" :key="comment.uuid"><strong>{{comment.user.username}}</strong> : {{comment.message}}</p>
+        <div class="new-comment">
+          <div class="control">
+            <input class="input is-small" type="text" placeholder="Commentaire">
+          </div>
+        </div>
       </div>
         </div>
       </div>
@@ -86,5 +91,7 @@ export default {
   padding-right: 10px;
   padding-bottom: 10px;
 }
-
+.new-comment {
+  margin-top: 10px;
+}
 </style>

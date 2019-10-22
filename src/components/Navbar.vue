@@ -2,28 +2,28 @@
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <router-link class="navbar-item" to="/">
-      INSTA Q
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
     </router-link>
   </div>
 
     <div class="navbar-end">
       <div class="field has-addons wrap">
         <div class="control search">
-          <input class="input" type="text" placeholder="Search username...">
+          <input class="input" type="text" placeholder="Chercher un utilisateur...">
         </div>
         <div class="control">
           <a class="button is-white">
-            Search
+            Chercher
           </a>
         </div>
       </div>
       <div class="navbar-item">
         <div class="buttons">
           <router-link to="/signup" class="button is-primary">
-            <strong>Sign up</strong>
+            <strong>Inscription</strong>
           </router-link>
           <a class="button is-light">
-            Log in
+            Connexion
           </a>
         </div>
       </div>
