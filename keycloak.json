@@ -1,0 +1,10 @@
+{
+  "realm": "staging",
+  "auth-server-url": "https://keycloak.k8s.d0do.fr/auth",
+  "ssl-required": "external",
+  "resource": "instaq-front",
+  "credentials": {
+    "secret": "35f17b64-8182-4370-895e-3285cecd7895"
+  },
+  "confidential-port": 0
+}
