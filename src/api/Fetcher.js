@@ -1,20 +1,28 @@
-const BASE_URL = process.env.BASE_URL || "";
-
-export const fetchApi = async (method, url) => {
-  const response = await fetch(`${BASE_URL}/${url}`, {
+const fetchApi = async (method, url) => {
+  const response = await fetch(`${url}`, {
     method: method,
     headers: {
-      "Content-Type": "application/json",
+      'Accept': '*/*',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Content-Type': 'application/json'
     }
   });
   if (!response) {
     throw response;
   }
   try {
-    return await response.json();
+    const data = await response.json();
+    // eslint-disable-next-line no-console
+    console.log(data);
+    return data;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("Error parsing JSON, returned nothing", err);
     return;
   }
 };
+
+export const fetchNewsFeed = async () => {
+  return await fetchApi("GET", "http://localhost:3000/newsfeed");
+}

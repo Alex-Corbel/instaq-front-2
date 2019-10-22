@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="section">
-      <div class="card is-horizontal columns">
+    <div class="section" v-for="post in posts" :key="post.id">
+      <div  class="card is-horizontal columns">
         <div class="card-image column is-three-fifths">
           <figure class="image is-4by3">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Great_Wave_off_Kanagawa2.jpg"
+              v-bind:src="post.image"
               alt="this used to be photo"
             />
           </figure>
@@ -14,20 +14,19 @@
           <div class="media">
             <div class="media-left">
               <figure class="image is-64x64">
-                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+                <img v-bind:src="post.user.avatar" alt="Placeholder image" />
               </figure>
             </div>
             <div class="media-content">
-              <p class="title is-4">John Smith</p>
+              <p class="title is-4">{{post.user.firstname}} {{post.user.lastname}}</p>
               <p class="subtitle is-6">
-                <router-link to="/profile" class="tag is-rounded">@johnsmith</router-link>
+                <router-link to="/profile" class="tag is-rounded">@{{post.user.username}}</router-link>
               </p>
             </div>
           </div>
 
           <div class="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-            <a>@bulmaio</a>
+            {{post.description}}
           </div>
           <nav class="level is-mobile">
         <div class="level-left">
@@ -36,11 +35,11 @@
               <font-awesome-icon icon="heart" />
             </span>
           </a>
-          <p> 15 688 J'aime</p>
+          <p> {{post.like}} J'aime</p>
         </div>
       </nav>
-      <div class="content">
-        <p><strong>Username</strong> Wow quelle magnifique photo</p>
+      <div class="comments">
+        <p v-for="comment in post.comments" :key="comment.uuid"><strong>{{comment.user.username}}</strong> : {{comment.message}}</p>
       </div>
         </div>
       </div>
@@ -49,17 +48,43 @@
 </template>
 
 <script>
+
+import { fetchNewsFeed } from "../api/Fetcher.js";
+
 export default {
   name: "Home",
   props: {
     msg: String
+  },
+  data() {
+    return {
+      posts: []
+    }
+  },
+  methods: {
+    async getNewsFeed() {
+      this.posts = await fetchNewsFeed();
+    }
+  },
+  mounted() {
+    try {
+      this.getNewsFeed();
+    } catch (err) {
+      throw err;
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.center {
-  text-align: center;
+.comments {
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
+
 </style>

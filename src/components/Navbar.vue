@@ -2,7 +2,7 @@
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <router-link class="navbar-item" to="/">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+      INSTA Q
     </router-link>
   </div>
 
