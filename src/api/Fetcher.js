@@ -25,3 +25,7 @@ const fetchApi = async (method, urlParam) => {
 export const fetchNewsFeed = async () => {
   return await fetchApi("GET", "newsfeed");
 }
+
+export const fetchUserProfile = async (userName) => {
+  return await fetchApi("GET", `profile/${userName}`);
+}

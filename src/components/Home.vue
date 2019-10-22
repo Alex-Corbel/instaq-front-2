@@ -20,7 +20,7 @@
             <div class="media-content">
               <p class="title is-4">{{post.user.firstname}} {{post.user.lastname}}</p>
               <p class="subtitle is-6">
-                <router-link to="/profile" class="tag is-rounded">@{{post.user.username}}</router-link>
+                <router-link v-bind:to="'/profile/'+post.user.username" class="tag is-rounded">@{{post.user.username}}</router-link>
               </p>
             </div>
           </div>

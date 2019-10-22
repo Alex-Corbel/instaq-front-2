@@ -5,20 +5,20 @@
       <div class='columns is-mobile is-multiline'>
         <div class='column is-2'>
           <span class='header-icon user-profile-image'>
-            <img class="" alt='' src='http://placehold.it/300x225'>
+            <img v-bind:src="userProfile.avatar">
           </span>
         </div>
         <div class='column is-4-tablet is-10-mobile name'>
           <p>
-            <span class='title is-bold'>Paul Miller</span>
+            <span class='title is-bold'>{{ userProfile.firstname }} {{ userProfile.lastname }}</span>
             <br>
             <router-link to="/addphoto" class='button is-primary is-outlined' href='#' id='edit-preferences' style='margin: 5px 0'>
-              Add pictures
+              Ajouter une photo
             </router-link>
             <br>
           </p>
           <p class='tagline'>
-           Description...
+           {{ userProfile.description }}
           </p>
         </div>
         <div class='column is-2-tablet is-4-mobile has-text-centered'>
@@ -37,56 +37,11 @@
     </div>
     </header>
     <div class="columns is-multiline">
-      <div class="column is-one-quarter-desktop is-half-tablet">
+      <div class="column is-one-quarter-desktop is-half-tablet" v-for="post in userProfile.posts" :key="post.id">
         <div class="card">
           <div class="card-image">
             <figure class="image is-3by2">
-              <img src="https://unsplash.it/300/200/?random&pic=1" alt />
-            </figure>
-          </div>
-        </div>
-      </div>
-      <div class="column is-one-quarter-desktop is-half-tablet">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-3by2">
-              <img src="https://unsplash.it/300/200/?random&pic=2" alt />
-            </figure>
-          </div>
-        </div>
-      </div>
-      <div class="column is-one-quarter-desktop is-half-tablet">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-3by2">
-              <img src="https://unsplash.it/300/200/?random&pic=3" alt />
-            </figure>
-          </div>
-        </div>
-      </div>
-      <div class="column is-one-quarter-desktop is-half-tablet">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-3by2">
-              <img src="https://unsplash.it/300/200/?random&pic=4" alt />
-            </figure>
-          </div>
-        </div>
-      </div>
-      <div class="column is-one-quarter-desktop is-half-tablet">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-3by2">
-              <img src="https://unsplash.it/300/200/?random&pic=5" alt />
-            </figure>
-          </div>
-        </div>
-      </div>
-      <div class="column is-one-quarter-desktop is-half-tablet">
-        <div class="card">
-          <div class="card-image">
-            <figure class="image is-3by2">
-              <img src="https://unsplash.it/300/200/?random&pic=6" alt />
+              <img v-bind:src="post.image" alt />
             </figure>
           </div>
         </div>
@@ -96,10 +51,29 @@
 </template>
 
 <script>
+import { fetchUserProfile } from "../api/Fetcher.js";
+
 export default {
   name: "Profile",
   props: {
     msg: String
+  },
+  data() {
+    return {
+      userProfile: {}
+    }
+  },
+  methods: {
+    async getUserProfile() {
+      this.userProfile = await fetchUserProfile(this.$route.params.username);
+    }
+  },
+  mounted() {
+    try {
+      this.getUserProfile();
+    } catch(err) {
+      throw err;
+    }
   }
 };
 </script>
