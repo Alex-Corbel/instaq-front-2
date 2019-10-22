@@ -33,21 +33,15 @@
         <div class="level-left">
           <a class="level-item" aria-label="reply">
             <span class="icon is-small">
-              <i class="fas fa-reply" aria-hidden="true"></i>
+              <font-awesome-icon icon="heart" />
             </span>
           </a>
-          <a class="level-item" aria-label="retweet">
-            <span class="icon is-small">
-              <i class="fas fa-retweet" aria-hidden="true"></i>
-            </span>
-          </a>
-          <a class="level-item" aria-label="like">
-            <span class="icon is-small">
-              <i class="fas fa-heart" aria-hidden="true"></i>
-            </span>
-          </a>
+          <p> 15 688 J'aime</p>
         </div>
       </nav>
+      <div class="content">
+        <p><strong>Username</strong> Wow quelle magnifique photo</p>
+      </div>
         </div>
       </div>
     </div>
