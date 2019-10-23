@@ -8,8 +8,8 @@ variables:
   IMAGE: registry.gitlab.com/instaq-epsi/front
   RELEASE_IMAGE: $IMAGE:latest
   KUBE_CONFIG: $KUBE_CONFIG 
-  DEPLOYMENT: front-app
-  NAMESPACE: instaq
+  DEPLOYMENT: instaq-front-deployment
+  NAMESPACE: instaq-front
 
 build:
   stage: build
