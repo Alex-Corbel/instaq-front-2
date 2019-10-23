@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+  {{ $keycloak.userName }}
+  <br/>
+  {{ $keycloak.fullName }}
+  <br/>
+  User id: {{ $keycloak.subject }}
     <div class="section" v-for="post in posts" :key="post.id">
       <div  class="card is-horizontal columns">
         <div class="card-image column is-three-fifths">

@@ -5,29 +5,29 @@
       INSTA-Q
     </router-link>
   </div>
-
-    <div class="navbar-end">
-      <div class="field has-addons wrap">
-        <div class="control search">
-          <input class="input" type="text" placeholder="Chercher un utilisateur...">
-        </div>
-        <div class="control">
-          <a class="button is-white">
-            Chercher
-          </a>
-        </div>
+  <div class="navbar-end">
+    <div class="field has-addons wrap">
+      <div class="control search">
+        <input class="input" type="text" placeholder="Chercher un utilisateur...">
       </div>
-      <div class="navbar-item">
-        <div class="buttons">
-          <router-link to="/signup" class="button is-primary">
-            <strong>Inscription</strong>
-          </router-link>
-          <a class="button is-light">
-            Connexion
-          </a>
-        </div>
+      <div class="control">
+        <a class="button is-white">
+          Chercher
+        </a>
       </div>
     </div>
+    <div class="navbar-item">
+      <div class="buttons">  
+        <button
+          @click="$keycloak.logoutFn"
+          v-if="$keycloak.authenticated"
+          class="button is-light"
+        >
+          Log out
+        </button>
+      </div>
+    </div>
+  </div>
 </nav>
 </template>
 

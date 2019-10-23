@@ -1,10 +1,10 @@
 {
-  "realm": "staging",
-  "auth-server-url": "https://keycloak.k8s.d0do.fr/auth",
+  "realm": "production",
+  "url": "https://keycloak.k8s.d0do.fr/auth",
   "ssl-required": "external",
-  "resource": "instaq-front",
+  "clientId": "instaq-front",
   "credentials": {
-    "secret": "35f17b64-8182-4370-895e-3285cecd7895"
+    "secret": "0e00b5af-8bcb-42ea-ad9e-6f45a259fdb5"
   },
   "confidential-port": 0
 }
