@@ -1,0 +1,33 @@
+image:  docker:19.03.1
+
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE: registry.gitlab.com/instaq-epsi/front
+  RELEASE_IMAGE: $IMAGE:latest
+  KUBE_CONFIG: $KUBE_CONFIG 
+  DEPLOYMENT: front-app
+  NAMESPACE: instaq
+
+build:
+  stage: build
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - DOCKER_BUILDKIT=1 docker build -t $CI_REGISTRY_IMAGE .
+    - docker push $RELEASE_IMAGE
+  tags: 
+    - instaq
+
+deploy_staging:
+  stage: deploy
+  image: registry.gitlab.com/instaq-epsi/docker-kubectl:latest
+  script:
+    - printf "$KUBE_CONFIG" > $HOME/.kube/config
+    - cat $HOME/.kube/config
+    - kubectl rollout restart deployment/front-app -n instaq
+  only:
+    - master
+  tags: 
+    - instaq
