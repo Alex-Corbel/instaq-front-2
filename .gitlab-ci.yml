@@ -5,7 +5,7 @@ stages:
   - deploy
 
 variables:
-  IMAGE: registry.gitlab.com/instaq-epsi/front
+  IMAGE: registry.gitlab.com/instaq-epsi/instaq-front
   RELEASE_IMAGE: $IMAGE:latest
   KUBE_CONFIG: $KUBE_CONFIG 
   DEPLOYMENT: instaq-front-deployment
