@@ -1,10 +1,9 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Home from "../components/Home.vue";
-import Profile from "../components/Profile.vue";
-import Signup from "../components/Signup.vue";
-import ErrorPage from "../components/Error.vue";
-import AddPhoto from "../components/AddPhoto.vue";
+import Vue from "vue"
+import Router from "vue-router"
+import Home from "../views/Home.vue"
+import Profile from "../views/Profile.vue"
+import ErrorPage from "../views/Error.vue"
+import AddPhoto from "../views/AddPhoto.vue"
 
 Vue.use(Router);
 
@@ -19,11 +18,6 @@ export default new Router({
         path: "/profile/:username/:pageindex?",
         name: "Profile",
         component: Profile
-      },
-      {
-        path: "/signup",
-        name: "Signup",
-        component: Signup
       },
       {
         path: "/addphoto",
