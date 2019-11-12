@@ -1,6 +1,5 @@
-image:  docker:19.03.1
-
 stages:
+  - test
   - build
   - deploy
 
@@ -11,14 +10,29 @@ variables:
   DEPLOYMENT: instaq-front-deployment
   NAMESPACE: instaq-front
 
+e2e-test:
+  image: cypress/browsers:chrome67
+  stage: test
+  script:
+    - npm ci --progress=false
+    - npm run test:e2e -- --headless
+
+unit-test:
+  image: node:12
+  stage: test
+  script:
+    - npm ci --progress=false
+    - npm run test:unit
+
 build:
+  image: docker:19.03.1
   stage: build
+  services:
+    - docker:dind
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $RELEASE_IMAGE .
     - docker push $RELEASE_IMAGE
-  tags: 
-    - instaq
 
 deploy_staging:
   stage: deploy
@@ -29,5 +43,3 @@ deploy_staging:
     - kubectl rollout restart deployment/instaq-front-deployment -n $NAMESPACE
   only:
     - master
-  tags: 
-    - instaq
