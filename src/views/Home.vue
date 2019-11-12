@@ -92,18 +92,3 @@ export default {
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.comments {
-  border-radius: 5px;
-  border: 1px solid lightgrey;
-  padding-top: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-}
-.new-comment {
-  margin-top: 10px;
-}
-</style>
