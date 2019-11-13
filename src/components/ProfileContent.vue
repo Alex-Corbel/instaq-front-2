@@ -1,7 +1,6 @@
 <template>
   <div class="flex-container mt-10">
     <div class="flex content-around flex-wrap">
-
       <div
         class="w-1/3 p-2"
         v-for="post in postsToShow"
@@ -55,7 +54,7 @@ export default {
     }
   },
   mounted() {
-    this.currentPage = this.page
+    this.currentPage = this.page;
     this.maxPage = this.getMaxPage(this.postsCount, this.postPerPage);
     this.postsToShow = this.getPostsToShow(this.currentPage, this.posts, this.postPerPage);
     this.pageList = this.getPageList(this.maxPage);

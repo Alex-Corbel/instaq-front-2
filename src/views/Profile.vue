@@ -66,7 +66,7 @@ export default {
     }
   },
   mounted() {
-    let data = this.getHeaderInformations(this.username);
+    const data = this.getHeaderInformations(this.username);
     this.posts = this.getContentInformations(this.username);
     this.bio = data.bio
     this.avatar = data.avatar
