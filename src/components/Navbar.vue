@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between py-4">
         <div class="cursor-pointer">
           <router-link to="/">
-            INSTA-Q
+            🍑
           </router-link>
         </div>
         <div class="hidden sm:flex sm:items-center">
