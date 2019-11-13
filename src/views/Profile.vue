@@ -4,7 +4,7 @@
     <ProfileHeader />
     
     <ProfileContent
-        :postPerPage=3*2
+        :postPerPage="3*2"
       />
   </div>
 </template>
