@@ -105,6 +105,32 @@ export const queries = {
       }
     }
   }
-  
+  `,
+  post_detail: `query ($post_id: uuid!) {
+    post(where: {id: {_eq: $post_id}}) {
+      content
+      created_at
+      photo_url
+      id
+      likes_aggregate {
+        aggregate {
+          count
+        }
+      }
+      thumbnail_url
+      user {
+        avatar_url
+        user_name
+      }
+      comments(order_by: {created_at: desc}, where: {post_id: {_eq: $post_id}}) {
+        user {
+          id
+          user_name
+          avatar_url
+        }
+        content
+      }
+    }
+  }
   `
 };
