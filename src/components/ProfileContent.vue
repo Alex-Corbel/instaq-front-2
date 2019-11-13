@@ -46,8 +46,8 @@ export default {
       return posts.slice((currentPage-1)*numberOfPostPerPage, currentPage*numberOfPostPerPage);
     },
     getPageList(maxPage) {
-      var list = [];
-      for(var i = 1; i <= maxPage; i++) {
+      const list = [];
+      for(let i = 1; i <= maxPage; i++) {
         list.push(i);
       }
       return list;
