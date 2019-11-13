@@ -1,5 +1,6 @@
 <template>
-  <div class="container mx-auto mt-24 md:mt-18">
+  <div v-if="firstname" class="container mx-auto mt-24 md:mt-18">
+    
     <ProfileHeader
         :username="username"
         :bio="bio"
@@ -15,30 +16,26 @@
     
     <ProfileContent
         :page=1
+        :postPerPage=12
         :posts="posts"
+        :postsCount="postsCount"
       >
     </ProfileContent>
-
-    <ProfilePagination
-      :username="username"
-      :currentPage=1
-      :postsCount="postsCount"
-      :numberOfLine=4
-    >
-    </ProfilePagination>
+  </div>
+  <div v-else class="flex mt-32 justify-center">
+    <img class="w-40 h-40" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/ab79a231234507.564a1d23814ef.gif"/>
   </div>
 </template>
 
 <script>
 import ProfileHeader from '../components/ProfileHeader'
 import ProfileContent from '../components/ProfileContent'
-import ProfilePagination from '../components/ProfilePagination'
 import userData from '../fixtures/users.json'
 import postData from '../fixtures/posts.json'
 
 export default {
   name: "Profile",
-  components: {ProfileHeader, ProfileContent, ProfilePagination},
+  components: {ProfileHeader, ProfileContent},
   data() {
     return {
       username: this.$route.params.username,
