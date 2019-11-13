@@ -8,7 +8,7 @@ variables:
   DOCKER_TLS_CERTDIR: ""
   IMAGE: registry.gitlab.com/instaq-epsi/instaq-front
   RELEASE_IMAGE: $IMAGE:latest
-  KUBE_CONFIG: $KUBE_CONFIG 
+  KUBE_CONFIG: $KUBE_CONFIG
   DEPLOYMENT: instaq-front-deployment
   NAMESPACE: instaq-front
 
