@@ -16,7 +16,7 @@
     
     <ProfileContent
         :page=1
-        :postPerPage=12
+        :postPerPage=3*2
         :posts="posts"
         :postsCount="postsCount"
       >
