@@ -23,7 +23,7 @@
     </ProfileContent>
   </div>
   <div v-else class="flex mt-32 justify-center">
-    <img class="w-40 h-40" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/ab79a231234507.564a1d23814ef.gif"/>
+    <img class="w-48 h-48" src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/ab79a231234507.564a1d23814ef.gif"/>
   </div>
 </template>
 
