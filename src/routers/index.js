@@ -11,11 +11,6 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: "/first-step",
-      name: "FirstSteps",
-      component: FirstSteps
-    },
-    {
       path: "/",
       name: "Splashscreen",
       component: Splashscreen

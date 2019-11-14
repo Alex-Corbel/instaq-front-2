@@ -1,15 +1,15 @@
 <template>
   <div class="text-center py-4 lg:px-4">
-    <div :class="toast.class.join(' ')" role="alert">
+    <div :class="toast.class" role="alert">
       <font-awesome-icon
-          :v-if="beforeIcon.content"
-          :icon="beforeIcon.content || ''"
+          v-if="beforeIcon"
+          :icon="beforeIcon.content"
           :class="beforeIcon.class"/>
-      <span :class="message.class.join(' ')">{{message.text}}</span>
+      <span :class="message.class">{{message.text}}</span>
       <font-awesome-icon
-          :v-if="afterIcon.content"
+          v-if="afterIcon"
           :icon="afterIcon.content"
-          :class="afterIcon.class || ''"/>
+          :class="afterIcon.class"/>
     </div>
   </div>
 </template>

@@ -102,21 +102,12 @@
           size="lg"
           class="hover:text-purple-600 cursor-pointer"/>
     </div>
-    <Toast
-      ref="bookmark-toast"
-      :toast="{'class': ['p-2', 'bg-indigo-800', 'items-center', 'text-indigo-100', 'leading-none', 'lg:rounded-full', 'flex', 'lg:inline-flex']}"
-      :message="{'class': ['font-semibold', 'mr-2', 'text-left', 'flex-auto'],
-                 'text': $t('bookmarked-msg')}"
-      :beforeIcon="{'content': ['far', 'paper-plane']}"
-    />
   </div>
 </template>
 
 <script>
-import Toast from './Toast'
 export default {
     name: 'Post',
-    components: {Toast},
     props:{
       id: String,
       username: String,
@@ -152,7 +143,7 @@ export default {
     switchBookmark: function () {
       this.postIsMark= !this.postIsMark
       if (this.postIsMark)
-        this.$toasted.global.bookmarked();
+        this.$emit('bookmarked')
     },
     switchLike: function () {
       if (!this.postIsLike)

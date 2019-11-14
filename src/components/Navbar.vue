@@ -3,12 +3,12 @@
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between py-4">
         <div class="cursor-pointer text-lg">
-          <router-link to="/home">
+          <router-link to="/home" id="logo">
             🍑
           </router-link>
         </div>
         <div class="hidden sm:flex sm:items-center">
-          <div class="flex items-center border-b border-b-2 border-purple-500">
+          <div class="flex items-center border-b border-b-2 border-purple-500" id="search">
             <font-awesome-icon :icon="['fas', 'search']" size="sm" class="mr-4"/>
             <input type="text" :placeholder="$t('research')" class="outline-none">
           </div>

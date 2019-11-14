@@ -14,9 +14,17 @@
         :commentsCount="post.commentsCount"
         :lastComment="post.lastComment"
         :date="post.date"
+        v-on:bookmarked="displayToast"
       >
       </Post>
     </div>
+    <Toast
+      :toast="{'class': toastClass}"
+      :message="{'class': ['font-semibold', 'mx-2', 'text-left', 'flex-auto'],
+                 'text': $t('bookmarked-msg')}"
+      :beforeIcon="null"
+      :afterIcon="{'content': ['fas', 'save'], 'class': ['mr-1']}"
+    />
   </div>
 </template>
 
@@ -24,15 +32,26 @@
 
 // import { fetchNewsFeed } from "../api/fetcher.js"
 import Post from '../components/PostAsList'
+import Toast from '../components/Toast'
 
 export default {
   name: "Home",
-  components: {Post},
+  components: {Post, Toast},
   props: {
     msg: String
   },
   data() {
     return {
+      toastClass: {
+        'toast': true,
+        'ew-toast-show': false,
+        'p-2': true,
+        'bg-purple-200': true,
+        'text-purple-500': true,
+        'leading-none': true,
+        'rounded-full': true,
+        'lg:inline-flex': true
+      },
       posts: [
         {
           id: "test1",
@@ -81,6 +100,12 @@ export default {
   methods: {
     async getNewsFeed() {
       // this.posts = await fetchNewsFeed();
+    },
+    displayToast(){
+      this.toastClass['ew-toast-show'] = true;
+      setTimeout(()=> {
+        this.toastClass['ew-toast-show'] = false;
+      }, 1000)
     }
   },
   mounted() {
@@ -92,3 +117,15 @@ export default {
   }
 };
 </script>
+
+<style>
+.toast {
+  position: fixed;
+  bottom: -50px;
+  transition: transform 0.5s;
+}
+
+.ew-toast-show {
+  transform: translateY(-70px);
+}
+</style>

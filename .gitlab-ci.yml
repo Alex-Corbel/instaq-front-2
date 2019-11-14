@@ -36,7 +36,7 @@ e2e-test:
   image: cypress/browsers:chrome67
   stage: test
   script:
-    - npm i @vue/cli-plugin-e2e-cypress@4.0.5
+    - npm i @vue/cli-plugin-e2e-cypress@4.0.5 cypress
     - npm run test:e2e -- --headless
   tags:
     - instaq
