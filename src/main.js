@@ -7,7 +7,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faSearch,
   faHeart,
-  faBookmark
+  faBookmark,
+  faPowerOff
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart as farHeart,
@@ -36,7 +37,8 @@ library.add([
   faShareSquare,
   farBookmark,
   faBookmark,
-  faPaperPlane
+  faPaperPlane,
+  faPowerOff
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
@@ -46,6 +48,9 @@ Vue.config.productionTip = false;
 Vue.use(VueKeyCloak, {
   init: {
     onLoad: "login-required"
+  },
+  logout: {
+    redirectUri: "http://192.168.1.19:8080/"
   },
   config: initOptions.default,
   onReady: keycloak => {
@@ -58,6 +63,15 @@ Vue.use(VueKeyCloak, {
       store,
       render: h => h(App)
     });
+    setTimeout(function() {
+      store.dispatch("retrieveProfile").then(() => {
+        if (!store.state.profile || store.state.profile.user_name === "") {
+          router.replace("/first-step");
+        } else {
+          router.replace("/home");
+        }
+      });
+    }, 2000);
   }
 });
 

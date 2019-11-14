@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Navbar />
-    <router-view />
+    <Navbar v-if="$route.name != 'FirstSteps' && $route.name != 'Splashscreen'"/>
+    <router-view/>
   </div>
 </template>
 

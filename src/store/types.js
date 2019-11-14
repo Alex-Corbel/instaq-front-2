@@ -2,7 +2,8 @@ export const action_types = {
   RETRIEVE_TIMELINE: "retrieveTimeline",
   RETRIEVE_PROFILE: "retrieveProfile",
   UPDATE_TOKEN: "updateToken",
-  UPDATE_USER_ID: "updateUserId"
+  UPDATE_USER_ID: "updateUserId",
+  INSERT_USER: "insertUser"
 };
 
 export const mutation_types = {

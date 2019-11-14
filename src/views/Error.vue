@@ -2,7 +2,7 @@
   <div class="notfound">
       <h2>404 - Page introuvable</h2>
       <p>La page que vous avez demandé n'existe pas ou a été supprimée.</p>
-      <router-link to="/"><button class="button is-primary">Direction l'accueil</button></router-link>
+      <router-link to="/home"><button class="button is-primary">Direction l'accueil</button></router-link>
   </div>
 </template>
 

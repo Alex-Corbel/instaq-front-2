@@ -1,4 +1,5 @@
 stages:
+  - setup
   - test
   - build
   - deploy
@@ -6,28 +7,46 @@ stages:
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
-  IMAGE: registry.gitlab.com/instaq-epsi/instaq-front
-  RELEASE_IMAGE: $IMAGE:latest
   KUBE_CONFIG: $KUBE_CONFIG
   DEPLOYMENT: instaq-front-deployment
   NAMESPACE: instaq-front
+
+setup:
+  image: node:12
+  stage: setup
+  artifacts:
+    name: "artifacts-$CI_PIPELINE_ID"
+    expire_in: 1 hour
+    paths:
+      - node_modules/
+  script:
+    - npm ci
+  tags:
+    - instaq
+
+linter-test:
+  image: node:12
+  stage: test
+  script:
+    - npm run format:check
+  tags:
+    - instaq
 
 e2e-test:
   image: cypress/browsers:chrome67
   stage: test
   script:
-    - npm ci --progress=false
+    - npm i @vue/cli-plugin-e2e-cypress@4.0.5
     - npm run test:e2e -- --headless
-  tags: 
+  tags:
     - instaq
 
 unit-test:
   image: node:12
   stage: test
   script:
-    - npm ci --progress=false
     - npm run test:unit
-  tags: 
+  tags:
     - instaq
 
 build:
@@ -37,10 +56,27 @@ build:
     - docker:dind
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - DOCKER_BUILDKIT=1 docker build -t $RELEASE_IMAGE .
-    - docker push $RELEASE_IMAGE
-  tags: 
+    - DOCKER_BUILDKIT=1 docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  tags:
     - instaq
+  except:
+    - master
+
+master_tag:
+  image: docker:19.03.1
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA > /dev/null && echo "image was pull exist" || DOCKER_BUILDKIT=1 docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+  tags:
+    - instaq
+  only:
+    - master
 
 deploy_staging:
   stage: deploy
@@ -51,5 +87,5 @@ deploy_staging:
     - kubectl rollout restart deployment/instaq-front-deployment -n $NAMESPACE
   only:
     - master
-  tags: 
+  tags:
     - instaq

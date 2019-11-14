@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css?family=Salsa");
+
+.font-salsa {
+  font-family: "Salsa"
+}
+
+.bg-purple-1000{
+  background-color: #3F3D56;
+}
+
+.text-purple-1000{
+  color: #3F3D56;
+}

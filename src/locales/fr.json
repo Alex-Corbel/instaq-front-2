@@ -2,12 +2,12 @@
   "research": "Rechercher",
   "likes": "J'aime",
   "view": "Afficher le | Afficher les",
-  "comment": "commentaire | commentaires",
+  "comment": "Commentaire | Commentaires",
   "ago": "Il y a {duration}",
   "day": "jour | jours",
-  "month": "mois | mois",
-  "hour": "heure | heures",
-  "minute": "minute | minutes",
+  "month": "Mois | Mois",
+  "hour": "Heure | Heures",
+  "minute": "Minute | Minutes",
   "add-comment": "Ajouter un commentaire",
   "january": "Janvier",
   "february": "Février",
@@ -21,5 +21,29 @@
   "october": "Octobre",
   "november": "Novembre",
   "december": "Décembre",
-  "bookmarked-msg": "Post sauvergadé"
+  "bookmarked-msg": "Post sauvergadé",
+  "skip": "Passer",
+  "finish": "Finir",
+  "security": "Security",
+  "post": "Post | Posts",
+  "hashtag": "Hashtag | Hashtags",
+  "onboarding": {
+    "security": [
+      "Sécurité à tous les niveaux",
+      "Nous ne gardons pas vos photos"
+    ],
+    "post": [
+      "Postez vos photos en toutes simplicité",
+      "Vos abonnés seront tous au courant",
+      "Profitez des posts de vos abonnements"
+    ],
+    "comment": [
+      "Faites part de vos impressions à vos abonnements",
+      "Profitez de l'avis de vos abonnés"
+    ],
+    "hashtag": [
+      "Ajoutez des hastags à vos publications",
+      "Cherchez les hastags que vous aimé avec aisance"
+    ]
+  }
 }

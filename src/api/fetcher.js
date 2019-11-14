@@ -1,7 +1,6 @@
 const API_URL = "https://hasura.k8s.d0do.fr/v1/graphql";
 
 export const fetcher = (token, query, variables) => {
-  console.log(token);
   return fetch(API_URL, {
     method: "POST",
     headers: {

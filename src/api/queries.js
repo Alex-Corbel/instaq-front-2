@@ -3,8 +3,6 @@ export const queries = {
     user(where: {user_id: {_eq: $user_id}}) {
       user_name
       user_id
-      firstname
-      lastname
       description
       avatar_url
       followers_aggregate {

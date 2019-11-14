@@ -2,16 +2,16 @@
   "research": "Research",
   "likes": "Likes",
   "view": "View the | View all",
-  "comment": "comment | comments",
+  "comment": "Comment | Comments",
   "ago": "{duration} ago",
   "day": "day | days",
-  "month": "month | months",
-  "hour": "hour | hours",
+  "month": "Month | Months",
+  "hour": "Hour | Hours",
   "add-comment": "Add a comment",
-  "post": "post | posts",
-  "follower": "follower | followers",
-  "following": "following",
-  "minute": "minute | minutes",
+  "post": "Post | Posts",
+  "follower": "Follower | Followers",
+  "following": "Following",
+  "minute": "Minute | Minutes",
   "january": "January",
   "february": "February",
   "march": "March",
@@ -24,5 +24,25 @@
   "october": "October",
   "november": "November",
   "december": "December",
-  "bookmarked-msg": "Post was saved"
+  "bookmarked-msg": "Post was saved",
+  "skip": "Skip",
+  "finish": "Finish",
+  "security": "Security",
+  "hashtag": "Hashtag | Hashtags",
+  "onboarding": {
+    "security": ["Security at all levels", "We don't store your photos"],
+    "post": [
+      "Easily post your photos",
+      "All your followers will know",
+      "Enjoy all your followees' posts"
+    ],
+    "comment": [
+      "Make sure your followees know what you think about posts",
+      "Enjoy your followers' opinion"
+    ],
+    "hashtag": [
+      "Add hastags to your publications",
+      "Easily search for hastags you enjoy"
+    ]
+  }
 }
