@@ -8,9 +8,9 @@
   <div class="mt-2 ml-8 justify-center">
     <div class="uppercase tracking-wide text-indigo-600 font-bold text-xl mb-3">{{username}}</div>
     <div class="flex justify-between">
-      <span><strong>{{ postsCount || 0 }}</strong> {{$tc('post', 2)}}</span>
-      <span><strong>{{ followersCount || 0 }}</strong> {{$tc('follower', 2)}}</span>
-      <span><strong>{{ followingCount || 0 }}</strong> {{$t('following')}}</span>
+      <div class="p-1"><strong>{{ postsCount || 0 }}</strong> {{$tc('post', 2)}} </div>
+      <div class="p-1"><strong>{{ followersCount || 0 }}</strong> {{$tc('follower', 2)}} </div>
+      <div class="p-1"><strong>{{ followingCount || 0 }}</strong> {{$t('following')}} </div>
     </div>
     <p class="mt-3 text-gray-600">{{ bio }}</p>
   </div>
@@ -18,34 +18,37 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "ProfileHeader",
   props: {
-    username: String,
-    firstname: String,
-    lastname: String,
-    bio: String,
-    website: String,
-    followersCount: Number,
-    followingCount: Number,
-    postsCount: Number,
-    avatar: String,
     haveStories: Boolean
   },
-  data(){
+  data() {
     return {
       avatarClasses: {
-        'w-56': true,
-        'h-56': true,
-        'rounded-full': true,
-        'm-2': true,
-        'mr-4': true,
-        'p-1': true,
-        'border-purple-500': this.haveStories,
-        'border-2': this.haveStories,
-        'bg-contain': true
-      },
-    }
+        "w-30": true,
+        "h-30": true,
+        "rounded-full": true,
+        "m-2": true,
+        "mr-4": true,
+        "p-1": true,
+        "border-purple-500": this.haveStories,
+        "border-2": this.haveStories
+      }
+    };
+  },
+  computed: {
+    ...mapState({
+      username: state => state.profile.user_name,
+      bio: state => state.profile.description,
+      avatar: state => state.profile.avatar_url,
+      followersCount: state =>
+        state.profile.followers_aggregate.aggregate.count,
+      followingCount: state => state.profile.follows_aggregate.aggregate.count,
+      postsCount: state => state.profile.posts_aggregate.aggregate.count,
+      name: state => `${state.profile.firstname} ${state.profile.lastname}`
+    })
   }
-}
+};
 </script>

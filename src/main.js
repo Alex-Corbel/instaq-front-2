@@ -21,8 +21,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import * as initOptions from "../keycloak.json";
 import VueKeyCloak from "@dsb-norge/vue-keycloak-js";
-import axios from "axios";
 import i18n from "./i18n";
+import store from "./store";
+import { action_types } from "./store/types";
+import "./registerServiceWorker";
 
 library.add([
   farHeart,
@@ -41,26 +43,22 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.devtools = true;
 Vue.config.productionTip = false;
 
-function tokenInterceptor() {
-  axios.interceptors.request.use(
-    config => {
-      config.headers.Authorization = `Bearer ${Vue.prototype.$keycloak.token}`;
-      return config;
-    },
-    error => {
-      return Promise.reject(error);
-    }
-  );
-}
-
 Vue.use(VueKeyCloak, {
   init: {
     onLoad: "login-required"
   },
   config: initOptions.default,
-  onReady: () => {
-    tokenInterceptor();
-    /* eslint-disable no-new */
-    new Vue({ i18n, el: "#app", router: router, render: h => h(App) });
+  onReady: keycloak => {
+    store.dispatch(action_types.UPDATE_TOKEN, keycloak.token);
+    store.dispatch(action_types.UPDATE_USER_ID, keycloak.idTokenParsed.sub);
+    new Vue({
+      i18n,
+      el: "#app",
+      router: router,
+      store,
+      render: h => h(App)
+    });
   }
 });
+
+export { store };

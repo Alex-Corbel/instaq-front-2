@@ -2,7 +2,7 @@
   <nav class="bg-white p-2 mt-0 fixed w-full z-10 top-0 shadow-lg">
     <div class="container mx-auto px-4">
       <div class="flex items-center justify-between py-4">
-        <div class="cursor-pointer">
+        <div class="cursor-pointer text-lg">
           <router-link to="/">
             🍑
           </router-link>

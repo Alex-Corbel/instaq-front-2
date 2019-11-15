@@ -22,7 +22,7 @@
 
 <script>
 
-import { fetchNewsFeed } from "../api/Fetcher.js"
+// import { fetchNewsFeed } from "../api/fetcher.js"
 import Post from '../components/PostAsList'
 
 export default {
@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     async getNewsFeed() {
-      this.posts = await fetchNewsFeed();
+      // this.posts = await fetchNewsFeed();
     }
   },
   mounted() {
