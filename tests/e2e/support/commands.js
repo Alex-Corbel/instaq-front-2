@@ -82,7 +82,7 @@ Cypress.Commands.add("kcLogin", (username, password) => {
 
 Cypress.Commands.add("kcLogout", () => {
   const kcRoot = "https://keycloak.k8s.d0do.fr";
-  const kcRealm = "staging";
+  const kcRealm = "production";
   const kcRedirectUri = "http://localhost:8080/";
   return cy.request({
     url: `${kcRoot}/auth/realms/${kcRealm}/protocol/openid-connect/logout`,

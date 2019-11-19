@@ -11,18 +11,19 @@
       </div>
     </div>
     <div class="flex flex-row justify-center mt-5 mb-10">
-      <button
+      <router-link
         v-for="pageNumber in pageList.slice(
-          currentPage === 1 ? currentPage - 1 : currentPage - 2,
+          currentPage <= 1 ? currentPage - 1 : currentPage - 2,
           currentPage + 1
         )"
         :key="pageNumber"
         @click="currentPage = pageNumber"
+        :to="computeUrl(username, pageNumber)"
         class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l mr-2 ml-2"
       >
         <strong v-if="pageNumber === currentPage">{{ pageNumber }}</strong>
         <span v-else>{{ pageNumber }}</span>
-      </button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -38,13 +39,22 @@ export default {
     return {
       postsToShow: [],
       pageList: [],
-      maxPages: 0,
-      currentPage: 1
+      maxPages: 0
     };
   },
   computed: {
     ...mapState({
-      posts: state => state.profile.posts
+      posts: state => state.profileFromName.posts,
+      username: state => state.profileFromName.user_name,
+      currentPage: function(state) {
+        const newPageIndex = state.currentProfilePageIndex;
+        this.postsToShow = this.getPostsToShow(
+          newPageIndex,
+          this.posts,
+          this.postPerPage
+        );
+        return newPageIndex;
+      }
     })
   },
   methods: {
@@ -63,16 +73,12 @@ export default {
         list.push(i);
       }
       return list;
+    },
+    computeUrl(username, pageNumber) {
+      return `/profile/${username}/${pageNumber}`;
     }
   },
   watch: {
-    currentPage(newPageIndex) {
-      this.postsToShow = this.getPostsToShow(
-        newPageIndex,
-        this.posts,
-        this.postPerPage
-      );
-    },
     posts(newPosts) {
       this.maxPages = this.computeMaxPages(newPosts.length, this.postPerPage);
       this.postsToShow = this.getPostsToShow(

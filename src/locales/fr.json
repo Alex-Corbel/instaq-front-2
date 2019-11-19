@@ -24,9 +24,14 @@
   "bookmarked-msg": "Post sauvergadé",
   "skip": "Passer",
   "finish": "Finir",
-  "security": "Security",
+  "security": "Sécurité",
   "post": "Post | Posts",
+  "create_post": "Créer une publication",
+  "follow": "S'abonner",
+  "follower": "Abonné | Abonnés",
+  "following": "Abonnement | Abonnements",
   "hashtag": "Hashtag | Hashtags",
+  "unknown_user": "Utilisateur inconnu",
   "onboarding": {
     "security": [
       "Sécurité à tous les niveaux",

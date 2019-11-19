@@ -14,7 +14,34 @@ export default new Vuex.Store({
     timeline: [
       // post list
     ],
-    status: [],
+    currentProfilePageIndex: 1,
+    profileFromName: {
+      user_name: "",
+      user_id: "",
+      firstname: "",
+      lastname: "",
+      description: "",
+      avatar_url: "",
+      followers_aggregate: {
+        aggregate: {
+          count: 0
+        }
+      },
+      follows_aggregate: {
+        aggregate: {
+          count: 0
+        }
+      },
+      posts: [],
+      status: {
+        status_name: "OK"
+      },
+      posts_aggregate: {
+        aggregate: {
+          count: 0
+        }
+      }
+    },
     profile: {
       user_name: "",
       user_id: "",
@@ -61,6 +88,15 @@ export default new Vuex.Store({
     },
     [mutation_types.MUTATE_PROFILE](state, profile) {
       state.profile = { ...state.profile, ...profile };
+    },
+    [mutation_types.MUTATE_PROFILE_FROM_NAME](state, profileFromName) {
+      state.profileFromName = { ...state.profileFromName, ...profileFromName };
+    },
+    [mutation_types.MUTATE_CURRENT_PROFILE_PAGE_INDEX](
+      state,
+      currentProfilePageIndex
+    ) {
+      state.currentProfilePageIndex = currentProfilePageIndex;
     }
   },
   actions: {
@@ -97,6 +133,25 @@ export default new Vuex.Store({
     },
     [action_types.UPDATE_USER_ID]: (context, user_id) => {
       context.commit(mutation_types.MUTATE_USERID, user_id);
+    },
+    [action_types.RETRIEVE_PROFILE_FROM_NAME]: async (context, userName) => {
+      const profile = await fetchAsync(
+        context.state.token,
+        fetcher,
+        queries.profileFromName,
+        { user_name: userName }
+      );
+      const user = profile.data.user[0];
+      context.commit(mutation_types.MUTATE_PROFILE_FROM_NAME, user);
+    },
+    [action_types.UPDATE_CURRENT_PROFILE_PAGE_INDEX]: (
+      context,
+      currentProfilePageIndex
+    ) => {
+      context.commit(
+        mutation_types.MUTATE_CURRENT_PROFILE_PAGE_INDEX,
+        currentProfilePageIndex
+      );
     }
   },
   modules: {}
