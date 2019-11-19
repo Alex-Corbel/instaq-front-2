@@ -35,8 +35,8 @@
   "publish": "Publish",
   "new_post": {
     "title": "New publication",
-    "creation" : "Create a new publication",
-    "placeholder_description" : "Say what you want",
+    "creation": "Create a new publication",
+    "placeholder_description": "Say what you want",
     "error": {
       "no_image_selected": "Please select an image",
       "bad_file_type": "Please select a valid image",

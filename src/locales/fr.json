@@ -35,8 +35,8 @@
   "publish": "Publier",
   "new_post": {
     "title": "Nouvelle publication",
-    "creation" : "Création de la publication",
-    "placeholder_description" : "Dites ce que vous avez à dire",
+    "creation": "Création de la publication",
+    "placeholder_description": "Dites ce que vous avez à dire",
     "error": {
       "no_image_selected": "Veuillez sélectionner une image",
       "bad_file_type": "Veuillez sélectionner une image valide",
