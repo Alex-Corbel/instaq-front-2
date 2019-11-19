@@ -14,8 +14,11 @@
           </div>
         </div>
         <div class="flex justify-between items-center pt-2">
-          <font-awesome-icon :icon="['far', 'compass']" size="lg" class="text-gray-800 hover:text-purple-600 mr-4 cursor-pointer"/>
-          <font-awesome-icon :icon="['far', 'heart']" size="lg" class="text-gray-800 hover:text-purple-600 mr-4 cursor-pointer"/>
+          <!-- <font-awesome-icon :icon="['far', 'compass']" size="lg" class="text-gray-800 hover:text-purple-600 mr-4 cursor-pointer"/>
+          <font-awesome-icon :icon="['far', 'heart']" size="lg" class="text-gray-800 hover:text-purple-600 mr-4 cursor-pointer"/> -->
+          <router-link :to="'/create-post/'">
+            <font-awesome-icon :icon="['far', 'plus-square']" size="lg" class="text-gray-800 hover:text-purple-600 mr-4 cursor-pointer"/>
+          </router-link>
           <router-link :to="'/profile/' + $keycloak.userName">
             <font-awesome-icon :icon="['far', 'user']" size="lg" class="text-gray-800 hover:text-purple-600 mr-4 cursor-pointer"/>
           </router-link>

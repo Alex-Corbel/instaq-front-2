@@ -3,7 +3,7 @@ import Router from "vue-router";
 import Home from "../views/Home.vue";
 import Profile from "../views/Profile.vue";
 import ErrorPage from "../views/Error.vue";
-import AddPhoto from "../views/AddPhoto.vue";
+import CreatePost from "../views/CreatePost.vue";
 import FirstSteps from "../views/FirstSteps.vue";
 import Splashscreen from "../views/Splashscreen.vue";
 Vue.use(Router);
@@ -36,9 +36,9 @@ export default new Router({
       component: Profile
     },
     {
-      path: "/addphoto",
-      name: "AddPhoto",
-      component: AddPhoto
+      path: "/create-post",
+      name: "CreatePost",
+      component: CreatePost
     },
     {
       path: "*",

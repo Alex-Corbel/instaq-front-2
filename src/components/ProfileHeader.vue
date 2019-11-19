@@ -28,7 +28,7 @@
       <p class="mt-2 mb-2 text-gray-600">{{ bio }}</p>
       <div v-if="username === $route.params.username">
         <button class="w-full bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-          <router-link v-bind:to="'/create'">{{$t('create_post')}}</router-link>
+          <router-link v-bind:to="'/create-post'">{{$t('create_post')}}</router-link>
         </button>
       </div>
       <div v-else>

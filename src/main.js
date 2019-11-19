@@ -14,6 +14,7 @@ import {
   faHeart as farHeart,
   faUser,
   faCompass,
+  faPlusSquare,
   faComment,
   faShareSquare,
   faBookmark as farBookmark,
@@ -38,7 +39,8 @@ library.add([
   farBookmark,
   faBookmark,
   faPaperPlane,
-  faPowerOff
+  faPowerOff,
+  faPlusSquare,
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
