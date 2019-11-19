@@ -21,16 +21,16 @@ setup:
       - node_modules/
   script:
     - npm ci
-  tags:
-    - instaq
+  #tags:
+  #  - instaq
 
 linter-test:
   image: node:12
   stage: test
   script:
     - npm run format:check
-  tags:
-    - instaq
+  #tags:
+  #  - instaq
 
 e2e-test:
   image: cypress/browsers:chrome67
@@ -38,16 +38,16 @@ e2e-test:
   script:
     - npm i @vue/cli-plugin-e2e-cypress@4.0.5 cypress
     - npm run test:e2e -- --headless
-  tags:
-    - instaq
+  #tags:
+  #  - instaq
 
 unit-test:
   image: node:12
   stage: test
   script:
     - npm run test:unit
-  tags:
-    - instaq
+  #tags:
+  #  - instaq
 
 build:
   image: docker:19.03.1
@@ -58,8 +58,8 @@ build:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - DOCKER_BUILDKIT=1 docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
-  tags:
-    - instaq
+  #tags:
+  #  - instaq
   except:
     - master
 
@@ -73,8 +73,8 @@ master_tag:
     - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA > /dev/null && echo "image was pull exist" || DOCKER_BUILDKIT=1 docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
     - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:latest
-  tags:
-    - instaq
+  #tags:
+  #  - instaq
   only:
     - master
 
@@ -87,5 +87,5 @@ deploy_staging:
     - kubectl rollout restart deployment/instaq-front-deployment -n $NAMESPACE
   only:
     - master
-  tags:
-    - instaq
+  #tags:
+  #  - instaq

@@ -11,7 +11,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
-      path: "/",
+      path: "/splashscreen",
       name: "Splashscreen",
       component: Splashscreen
     },
@@ -21,12 +21,17 @@ export default new Router({
       component: FirstSteps
     },
     {
+      path: "/",
+      name: "Root",
+      component: Home
+    },
+    {
       path: "/home",
       name: "Home",
       component: Home
     },
     {
-      path: "/profile/:username/:pageindex?",
+      path: "/profile/:username/:pageIndex?",
       name: "Profile",
       component: Profile
     },

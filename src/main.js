@@ -63,12 +63,10 @@ Vue.use(VueKeyCloak, {
       store,
       render: h => h(App)
     });
-    setTimeout(function() {
-      store.dispatch("retrieveProfile").then(() => {
+    setTimeout(() => {
+      store.dispatch(action_types.RETRIEVE_PROFILE).then(() => {
         if (!store.state.profile || store.state.profile.user_name === "") {
           router.replace("/first-step");
-        } else {
-          router.replace("/home");
         }
       });
     }, 2000);

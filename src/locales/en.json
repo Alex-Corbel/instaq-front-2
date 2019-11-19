@@ -9,6 +9,8 @@
   "hour": "Hour | Hours",
   "add-comment": "Add a comment",
   "post": "Post | Posts",
+  "create_post": "Create new post",
+  "follow": "Follow",
   "follower": "Follower | Followers",
   "following": "Following",
   "minute": "Minute | Minutes",
@@ -29,6 +31,7 @@
   "finish": "Finish",
   "security": "Security",
   "hashtag": "Hashtag | Hashtags",
+  "unknown_user": "Unknown user",
   "onboarding": {
     "security": ["Security at all levels", "We don't store your photos"],
     "post": [

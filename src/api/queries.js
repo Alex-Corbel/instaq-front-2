@@ -30,6 +30,37 @@ export const queries = {
     }
   }  
       `,
+  profileFromName: `query ($user_name: String!) {
+    user(where: {user_name: {_ilike: $user_name}}) {
+      user_name
+      user_id
+      description
+      avatar_url
+      followers_aggregate {
+        aggregate {
+          count(columns: follower_id)
+        }
+      }
+      follows_aggregate {
+        aggregate {
+          count(columns: followee_id)
+        }
+      }
+      posts(order_by: {created_at: desc}) {
+        id
+        photo_url
+      }
+      status {
+        status_name
+      }
+      posts_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }  
+      `,
   timeline: `query ($user_id: String!) {
         post(where: {user: {_and: {user_id: {_eq: $user_id}, follows: {followers: {user_id: {_eq: $user_id}}}}}}) {
           content
