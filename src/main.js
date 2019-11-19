@@ -40,7 +40,7 @@ library.add([
   faBookmark,
   faPaperPlane,
   faPowerOff,
-  faPlusSquare,
+  faPlusSquare
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
