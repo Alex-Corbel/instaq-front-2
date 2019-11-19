@@ -32,6 +32,17 @@
   "following": "Abonnement | Abonnements",
   "hashtag": "Hashtag | Hashtags",
   "unknown_user": "Utilisateur inconnu",
+  "publish": "Publier",
+  "new_post": {
+    "title": "Nouvelle publication",
+    "creation" : "Création de la publication",
+    "placeholder_description" : "Dites ce que vous avez à dire",
+    "error": {
+      "no_image_selected": "Veuillez sélectionner une image",
+      "bad_file_type": "Veuillez sélectionner une image valide",
+      "bad_description": "Veuillez ajouter une description d'au moins 5 caractères"
+    }
+  },
   "onboarding": {
     "security": [
       "Sécurité à tous les niveaux",

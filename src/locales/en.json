@@ -32,6 +32,17 @@
   "security": "Security",
   "hashtag": "Hashtag | Hashtags",
   "unknown_user": "Unknown user",
+  "publish": "Publish",
+  "new_post": {
+    "title": "New publication",
+    "creation" : "Create a new publication",
+    "placeholder_description" : "Say what you want",
+    "error": {
+      "no_image_selected": "Please select an image",
+      "bad_file_type": "Please select a valid image",
+      "bad_description": "Please add a description with at least 5 characters"
+    }
+  },
   "onboarding": {
     "security": ["Security at all levels", "We don't store your photos"],
     "post": [
