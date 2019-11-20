@@ -44,3 +44,21 @@
   border-top-color: #6b46c1;
   animation: spinner .6s linear infinite;
 }
+
+.blurry {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+.unblurry {
+  animation: sharpen .5s both;
+}
+@keyframes sharpen {
+  from {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  }
+  to {
+    filter: blur(0px);
+  -webkit-filter: blur(0px);
+  }
+}

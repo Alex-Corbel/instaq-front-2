@@ -70,6 +70,7 @@ export const queries = {
       content
       created_at
       photo_url
+      thumbnail_url
       id
       status {
         status_name

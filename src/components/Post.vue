@@ -18,7 +18,8 @@
         }}</span>
       </router-link>
     </div>
-    <img class="w-full" :src="post.photo_url" />
+    <img class="w-full blurry" :src="post.thumbnail_url" v-if="!loaded">
+    <img :class="imageClass" :src="post.photo_url" :onload="changeThumbnail()">
     <div class="flex items-center m-2 justify-between">
       <div class="justify-start">
         <font-awesome-icon
@@ -152,6 +153,10 @@ export default {
   },
   data() {
     return {
+      imageClass: {
+        "hidden": true,
+        "w-full": true
+      },
       avatarClasses: {
         "w-10": true,
         "h-10": true,
@@ -162,6 +167,7 @@ export default {
         "border-purple-500": this.haveStories,
         "border-2": this.haveStories
       },
+      loaded: false,
       postIsMark: this.isMark,
       duration: undefined
     };
@@ -227,6 +233,10 @@ export default {
         let duration = minutes + " " + minute_text;
         return this.$t("ago", { duration: duration });
       }
+    },
+    changeThumbnail: function () {
+      this.loaded = true
+      this.imageClass.hidden= false
     }
   },
   computed: {
