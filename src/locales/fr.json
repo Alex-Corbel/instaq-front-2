@@ -36,6 +36,7 @@
   "new_post": {
     "title": "Nouvelle publication",
     "creation": "Création de la publication",
+    "choose_a_file": "Choisir une image",
     "placeholder_description": "Dites ce que vous avez à dire",
     "error": {
       "no_image_selected": "Veuillez sélectionner une image",
