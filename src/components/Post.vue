@@ -143,8 +143,8 @@
 
 <script>
 import { mapState } from "vuex";
-import { store } from "../main";
-import { action_types } from '../store/types';
+// import { store } from "../main";
+// import { action_types } from '../store/types';
 export default {
   name: "Post",
   props: {
