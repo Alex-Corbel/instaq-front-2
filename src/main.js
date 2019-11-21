@@ -18,7 +18,8 @@ import {
   faComment,
   faShareSquare,
   faBookmark as farBookmark,
-  faPaperPlane
+  faPaperPlane,
+  faTimesCircle
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import * as initOptions from "../keycloak.json";
@@ -40,7 +41,8 @@ library.add([
   faBookmark,
   faPaperPlane,
   faPowerOff,
-  faPlusSquare
+  faPlusSquare,
+  faTimesCircle
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

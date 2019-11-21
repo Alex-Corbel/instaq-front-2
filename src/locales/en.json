@@ -32,6 +32,8 @@
   "security": "Security",
   "hashtag": "Hashtag | Hashtags",
   "unknown_user": "Unknown user",
+  "not_explicit": "Picture not explicit",
+  "server_error": "Server has encountered error",
   "publish": "Publish",
   "new_post": {
     "title": "New publication",

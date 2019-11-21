@@ -14,3 +14,33 @@
 .text-purple-1000{
   color: #3F3D56;
 }
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.toast {
+  position: fixed;
+  bottom: -50px;
+  transition: transform 0.5s;
+}
+
+.ew-toast-show {
+  transform: translateY(-70px);
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  border-top-color: #6b46c1;
+  animation: spinner .6s linear infinite;
+}

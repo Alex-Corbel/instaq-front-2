@@ -32,6 +32,8 @@
   "following": "Abonnement | Abonnements",
   "hashtag": "Hashtag | Hashtags",
   "unknown_user": "Utilisateur inconnu",
+  "not_explicit": "La photo n'est pas explicite",
+  "server_error": "Le serveur a rencontré une erreur",
   "publish": "Publier",
   "new_post": {
     "title": "Nouvelle publication",

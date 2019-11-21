@@ -81,15 +81,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.toast {
-  position: fixed;
-  bottom: -50px;
-  transition: transform 0.5s;
-}
-
-.ew-toast-show {
-  transform: translateY(-70px);
-}
-</style>

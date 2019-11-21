@@ -16,5 +16,19 @@ export const mutations = {
         affected_rows
       }
     }
-    `
+    `,
+  UPLOAD_IMAGE: `mutation ($userId: String!, $image: String!) {
+    uploadImage(image: $image userId: $userId) {
+      created_at
+      url
+      url_thumbnail
+    }
+  }`,
+  INSERT_POST: `mutation ($content: String!, $photo_url: String!, $thumbnail_url: String!) {
+    insert_post(objects: {content: $content, photo_url: $photo_url, thumbnail_url: $thumbnail_url}) {
+      returning {
+        id
+      }
+    }
+  }`
 };
