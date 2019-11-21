@@ -11,11 +11,11 @@ export default new Vuex.Store({
   state: {
     token: "",
     userId: "",
-    timeline: [
-      // post list
-    ],
+    timeline: [],
+    timelineOffset: 0,
     currentProfilePageIndex: 1,
     profileFromName: {
+      id: "",
       user_name: "",
       user_id: "",
       firstname: "",
@@ -43,6 +43,7 @@ export default new Vuex.Store({
       }
     },
     profile: {
+      id: "",
       user_name: "",
       user_id: "",
       firstname: "",
@@ -84,7 +85,13 @@ export default new Vuex.Store({
       state.userId = userId;
     },
     [mutation_types.MUTATE_TIMELINE](state, timeline) {
-      state.timeline = { ...state.timeline, ...timeline }; // enougth for now
+      state.timeline = [...state.timeline, ...timeline];
+    },
+    [mutation_types.MUTATE_TIMELINE_OFFSET](state, offset) {
+      state.timelineOffset = offset;
+    },
+    [mutation_types.MUTATE_POST_LIKE](state, {postId}) {
+      state.timeline = [...state.timeline, state.timeline.find(post => post.id === postId)]; // TODO: know if user has likes this post
     },
     [mutation_types.MUTATE_PROFILE](state, profile) {
       state.profile = { ...state.profile, ...profile };
@@ -101,13 +108,32 @@ export default new Vuex.Store({
   },
   actions: {
     async [action_types.RETRIEVE_TIMELINE](context) {
-      const timeline = await fetchAsync(
+      const timeline = (
+        await fetchAsync(context.state.token, fetcher, queries.timeline, {
+          user_id: context.state.userId,
+          offset: context.state.timelineOffset
+        })
+      ).data.post;
+      context.commit(mutation_types.MUTATE_TIMELINE, timeline);
+      return timeline;
+    },
+    [action_types.UPDATE_TIMELINE_OFFSET](context, offset) {
+      context.commit(mutation_types.MUTATE_TIMELINE_OFFSET, offset);
+    },
+    async [action_types.UPDATE_POST_LIKE](
+      context,
+      { likeState, postId, userId }
+    ) {
+      await fetchAsync(
         context.state.token,
         fetcher,
-        queries.timeline,
-        { user_id: context.state.userId }
+        likeState ? mutations.UNLIKE_POST : mutations.LIKE_POST,
+        { postId, userId }
       );
-      context.commit(mutation_types.MUTATE_TIMELINE, timeline);
+      context.commit(mutation_types.MUTATE_POST_LIKE, {
+        postId,
+        likeState
+      });
     },
     async [action_types.RETRIEVE_PROFILE](context) {
       const profile = await fetchAsync(
@@ -123,7 +149,7 @@ export default new Vuex.Store({
       const user = await fetchAsync(
         context.state.token,
         fetcher,
-        mutations.insertUser,
+        mutations.INSERT_USER,
         { user_name: user_name }
       );
       context.commit(mutation_types.MUTATE_PROFILE, user);

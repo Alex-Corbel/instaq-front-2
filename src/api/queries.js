@@ -1,8 +1,8 @@
 export const queries = {
-  profile: `query ($user_id: String!) {
-    user(where: {user_id: {_eq: $user_id}}) {
+  profile: `query ($user_id: uuid!) {
+    user(where: {id: {_eq: $user_id}}) {
+      id
       user_name
-      user_id
       description
       avatar_url
       followers_aggregate {
@@ -32,8 +32,8 @@ export const queries = {
       `,
   profileFromName: `query ($user_name: String!) {
     user(where: {user_name: {_ilike: $user_name}}) {
+      id
       user_name
-      user_id
       description
       avatar_url
       followers_aggregate {
@@ -61,33 +61,40 @@ export const queries = {
     }
   }  
       `,
-  timeline: `query ($user_id: String!) {
-        post(where: {user: {_and: {user_id: {_eq: $user_id}, follows: {followers: {user_id: {_eq: $user_id}}}}}}) {
-          content
-          created_at
-          photo_url
-          id
-          status {
-            status_name
-          }
-          user {
-            avatar_url
-            user_name
-          }
-          comments_aggregate {
-            aggregate {
-              count
-            }
-          }
-          comments(limit: 1, order_by: {created_at: desc}) {
-            content
-            created_at
-            user {
-              avatar_url
-              id
-              user_name
-            }
-          }
+  timeline: `query ($user_id: uuid!, $offset: Int!) {
+    post(where: {user: {followers: {followers: {id: {_eq: $user_id}}}}}, limit: 10, offset: $offset) {
+      content
+      created_at
+      photo_url
+      id
+      status {
+        status_name
+      }
+      user {
+        avatar_url
+        user_name
+      }
+      comments_aggregate {
+        aggregate {
+          count
         }
-      }`
+      }
+      comments(limit: 1, order_by: {created_at: desc}) {
+        content
+        created_at
+        user {
+          avatar_url
+          id
+          user_name
+        }
+      }
+      likes_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+  
+  `
 };
