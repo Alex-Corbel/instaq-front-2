@@ -90,8 +90,11 @@ export default new Vuex.Store({
     [mutation_types.MUTATE_TIMELINE_OFFSET](state, offset) {
       state.timelineOffset = offset;
     },
-    [mutation_types.MUTATE_POST_LIKE](state, {postId}) {
-      state.timeline = [...state.timeline, state.timeline.find(post => post.id === postId)]; // TODO: know if user has likes this post
+    [mutation_types.MUTATE_POST_LIKE](state, { postId }) {
+      state.timeline = [
+        ...state.timeline,
+        state.timeline.find(post => post.id === postId)
+      ]; // TODO: know if user has likes this post
     },
     [mutation_types.MUTATE_PROFILE](state, profile) {
       state.profile = { ...state.profile, ...profile };

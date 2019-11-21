@@ -63,12 +63,12 @@ Vue.use(VueKeyCloak, {
       store,
       render: h => h(App)
     });
-      store.dispatch(action_types.RETRIEVE_PROFILE).then(() => {
-        if (!store.state.profile || store.state.profile.user_name === "") {
-          router.replace("/first-step");
-          return;
-        }
-      });
+    store.dispatch(action_types.RETRIEVE_PROFILE).then(() => {
+      if (!store.state.profile || store.state.profile.user_name === "") {
+        router.replace("/first-step");
+        return;
+      }
+    });
   }
 });
 
