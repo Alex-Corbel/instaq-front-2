@@ -7,11 +7,7 @@
         "
         class="cursor-pointer"
       >
-        <img
-          :src="post.user.avatar_url"
-          
-          :class="avatarClasses"
-        />
+        <img :src="post.user.avatar_url" :class="avatarClasses" />
       </router-link>
       <router-link
         v-bind:to="'/profile/' + post.user.user_name"
@@ -30,7 +26,7 @@
           :icon="['far', 'heart']"
           size="lg"
           :class="{
-            hidden: postIsLike,
+            hidden: post.likes.length > 0,
             'hover:text-purple-600': true,
             'mr-4': true,
             'cursor-pointer': true
@@ -42,7 +38,7 @@
           :icon="['fas', 'heart']"
           size="lg"
           :class="{
-            hidden: !postIsLike,
+            hidden: post.likes.length <= 0,
             'text-purple-600': true,
             'mr-4': true,
             'cursor-pointer': true
@@ -88,7 +84,10 @@
       </div>
     </div>
     <div class="flex items-center m-2 justify-start font-semibold">
-      {{ post.likes_aggregate.aggregate.count }} {{ $t("likes") }}
+      {{ post.likes_aggregate.aggregate.count }}
+      {{
+          $t("likes").toLowerCase()
+      }}
     </div>
     <div class="flex items-center mt-1 ml-2 justify-start">
       <router-link
@@ -143,8 +142,8 @@
 
 <script>
 import { mapState } from "vuex";
-// import { store } from "../main";
-// import { action_types } from '../store/types';
+import { store } from "../main";
+import { action_types } from "../store/types";
 export default {
   name: "Post",
   props: {
@@ -164,7 +163,6 @@ export default {
         "border-2": this.haveStories
       },
       postIsMark: this.isMark,
-      postIsLike: this.isLike,
       duration: undefined
     };
   },
@@ -174,9 +172,10 @@ export default {
       if (this.postIsMark) this.$emit("bookmarked");
     },
     switchLike: function() {
-      if (!this.postIsLike) this.likes = this.likes + 1;
-      else this.likes = this.likes - 1;
-      // store.dispatch(action_types.UPDATE_POST_LIKE, { postId: !this.postIsLiked)
+      store.dispatch(action_types.UPDATE_POST_LIKE, {
+        likeState: this.post.likes.length > 0,
+        postId: this.post.id
+      });
     },
     getAgoText: function() {
       const current_date = new Date();

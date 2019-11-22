@@ -21,5 +21,6 @@ export const mutation_types = {
   MUTATE_PROFILE_FROM_NAME: "setProfileFromName",
   MUTATE_CURRENT_PROFILE_PAGE_INDEX: "setCurrentProfilePageIndex",
   MUTATE_POST_LIKE: "setPostLike",
-  MUTATE_USER_SUBSCRIPTION: "setUserSubscription"
+  MUTATE_USER_SUBSCRIPTION: "setUserSubscription",
+  MUTATE_POST_LIKE_COUNT: "setPostLikeCount"
 };

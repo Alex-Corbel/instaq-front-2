@@ -95,14 +95,30 @@ export default new Vuex.Store({
     [mutation_types.MUTATE_TIMELINE_OFFSET](state, offset) {
       state.timelineOffset = offset;
     },
-    [mutation_types.MUTATE_POST_LIKE](state, { postId }) {
-      state.timeline = [
-        ...state.timeline,
-        state.timeline.find(post => post.id === postId)
-      ]; // TODO: know if user has likes this post
+    [mutation_types.MUTATE_POST_LIKE](state, { postId, likeState }) {
+      const timeline = state.timeline;
+      timeline.forEach(post => {
+        if (post.id !== postId) {
+          return;
+        }
+        post.likes = likeState
+          ? []
+          : [{ post_id: postId, user_id: state.userId }];
+      });
+      state.timeline = timeline;
     },
     [mutation_types.MUTATE_PROFILE](state, profile) {
       state.profile = { ...state.profile, ...profile };
+    },
+    [mutation_types.MUTATE_POST_LIKE_COUNT](state, { postId, count }) {
+      const timeline = state.timeline;
+      timeline.forEach(post => {
+        if (post.id !== postId) {
+          return;
+        }
+        post.likes_aggregate.aggregate.count = count;
+      });
+      state.timeline = timeline;
     },
     [mutation_types.MUTATE_PROFILE_FROM_NAME](state, profileFromName) {
       state.profileFromName = { ...state.profileFromName, ...profileFromName };
@@ -138,16 +154,23 @@ export default new Vuex.Store({
       context,
       { likeState, postId, userId }
     ) {
+      context.commit(mutation_types.MUTATE_POST_LIKE, {
+        postId,
+        likeState
+      });
+      const currentCount = context.state.timeline.find(
+        post => post.id === postId
+      ).likes_aggregate.aggregate.count;
+      context.commit(mutation_types.MUTATE_POST_LIKE_COUNT, {
+        postId,
+        count: likeState ? currentCount - 1 : currentCount + 1
+      });
       await fetchAsync(
         context.state.token,
         fetcher,
         likeState ? mutations.UNLIKE_POST : mutations.LIKE_POST,
         { postId, userId }
       );
-      context.commit(mutation_types.MUTATE_POST_LIKE, {
-        postId,
-        likeState
-      });
     },
     async [action_types.RETRIEVE_PROFILE](context) {
       const profile = await fetchAsync(

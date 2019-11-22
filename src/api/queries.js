@@ -79,6 +79,10 @@ export const queries = {
           count
         }
       }
+      likes {
+        user_id
+        post_id
+      }
     }
   }
   
