@@ -137,7 +137,7 @@ export default {
           );
           const data = response.data.uploadImage
           if(!response.errors){
-            await fetchAsync(
+            const res = await fetchAsync(
               store.state.token,
               fetcher,
               mutations.INSERT_POST,
@@ -147,7 +147,13 @@ export default {
                 thumbnail_url: data.url_thumbnail
               }
             )
-            this.$router.push("/#/home")
+            if(res.data.insert_post.returning[0].id){
+              this.$router.push("/#/home")
+            }else{
+              this.toastMsg = this.$t('server_error')
+              this.displayToast()
+            }
+
           }else{
             this.creatingPost = false
             if (response.errors[0].message === "Picture not explicit"){

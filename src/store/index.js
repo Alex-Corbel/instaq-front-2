@@ -40,6 +40,11 @@ export default new Vuex.Store({
         aggregate: {
           count: 0
         }
+      },
+      isFollower: {
+        aggregate: {
+          count: 0
+        }
       }
     },
     profile: {
@@ -107,6 +112,12 @@ export default new Vuex.Store({
       currentProfilePageIndex
     ) {
       state.currentProfilePageIndex = currentProfilePageIndex;
+    },
+    [mutation_types.MUTATE_USER_SUBSCRIPTION](state, isSubscribe) {
+      state.profileFromName.isFollower.aggregate.count = isSubscribe ? 1 : 0;
+      state.profileFromName.followers_aggregate.aggregate.count += isSubscribe
+        ? 1
+        : -1;
     }
   },
   actions: {
@@ -143,7 +154,7 @@ export default new Vuex.Store({
         context.state.token,
         fetcher,
         queries.profile,
-        { user_id: context.state.userId }
+        { id: context.state.userId }
       );
       const user = profile.data.user[0];
       context.commit(mutation_types.MUTATE_PROFILE, user);
@@ -157,18 +168,33 @@ export default new Vuex.Store({
       );
       context.commit(mutation_types.MUTATE_PROFILE, user);
     },
+    async [action_types.SUBSCRIBE_TO_USER](context) {
+      await fetchAsync(context.state.token, fetcher, mutations.SUBSCRIBE, {
+        followee_id: context.state.profileFromName.id
+      });
+      context.commit(mutation_types.MUTATE_USER_SUBSCRIPTION, true);
+    },
+    async [action_types.UNSUBSCRIBE_TO_USER](context) {
+      await fetchAsync(context.state.token, fetcher, mutations.UNSUBSCRIBE, {
+        followee_id: context.state.profileFromName.id
+      });
+      context.commit(mutation_types.MUTATE_USER_SUBSCRIPTION, false);
+    },
     [action_types.UPDATE_TOKEN]: (context, token) => {
       context.commit(mutation_types.MUTATE_TOKEN, token);
     },
     [action_types.UPDATE_USER_ID]: (context, user_id) => {
       context.commit(mutation_types.MUTATE_USERID, user_id);
     },
-    [action_types.RETRIEVE_PROFILE_FROM_NAME]: async (context, userName) => {
+    [action_types.RETRIEVE_PROFILE_FROM_NAME]: async (context, user_name) => {
       const profile = await fetchAsync(
         context.state.token,
         fetcher,
         queries.profileFromName,
-        { user_name: userName }
+        {
+          user_name: user_name,
+          follower_id: Vue.prototype.$keycloak.tokenParsed.sub
+        }
       );
       const user = profile.data.user[0];
       context.commit(mutation_types.MUTATE_PROFILE_FROM_NAME, user);

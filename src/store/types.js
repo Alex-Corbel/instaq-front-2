@@ -7,7 +7,9 @@ export const action_types = {
   INSERT_USER: "insertUser",
   RETRIEVE_PROFILE_FROM_NAME: "retrieveProfileFromName",
   UPDATE_CURRENT_PROFILE_PAGE_INDEX: "updateCurrentProfilePageIndex",
-  UPDATE_POST_LIKE: "updatePostLike"
+  UPDATE_POST_LIKE: "updatePostLike",
+  SUBSCRIBE_TO_USER: "subscribeToUser",
+  UNSUBSCRIBE_TO_USER: "unsubscribeToUser"
 };
 
 export const mutation_types = {
@@ -18,5 +20,6 @@ export const mutation_types = {
   MUTATE_USERID: "setUserId",
   MUTATE_PROFILE_FROM_NAME: "setProfileFromName",
   MUTATE_CURRENT_PROFILE_PAGE_INDEX: "setCurrentProfilePageIndex",
-  MUTATE_POST_LIKE: "setPostLike"
+  MUTATE_POST_LIKE: "setPostLike",
+  MUTATE_USER_SUBSCRIPTION: "setUserSubscription"
 };

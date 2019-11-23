@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto mt-24 md:mt-18">
-    <div class="flex justify-center" v-if="username === '' || username != usernameParam">
+    <div class="flex justify-center" v-if="username === '' || username.toLowerCase() != usernameParam.toLowerCase()">
       {{$t("unknown_user")}}
     </div>
     <div v-else>

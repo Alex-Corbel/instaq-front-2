@@ -26,22 +26,28 @@
         </div>
       </div>
       <p class="mt-2 mb-2 text-gray-600">{{ bio }}</p>
-      <div v-if="username === $route.params.username">
+      <div v-if="username && username.toLowerCase() === current_username.toLowerCase()">
         <button class="w-full bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
           <router-link v-bind:to="'/create-post'">{{$t('create_post')}}</router-link>
         </button>
       </div>
       <div v-else>
-        <button class="w-full bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-          {{$t('follow')}}
+        <button v-on:click="unsubscribe" v-if="isSubscribe" class="w-full bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded">
+          {{$t('unfollow')}}
         </button>
+        <button v-on:click="subscribe" v-else class="w-full bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+          {{$t('follow')}}
+        </button>        
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import store from "@/store";
+import { action_types } from "@/store/types";
 import { mapState } from "vuex";
+
 export default {
   name: "ProfileHeader",
   props: {
@@ -61,8 +67,19 @@ export default {
       }
     };
   },
+  methods: {
+    subscribe() {
+      store.dispatch(action_types.SUBSCRIBE_TO_USER);
+    },
+    unsubscribe() {
+      store.dispatch(action_types.UNSUBSCRIBE_TO_USER);
+    }
+  },
   computed: {
     ...mapState({
+      isSubscribe: state => state.profileFromName.isFollower.aggregate.count > 0,
+      current_username: state => state.profile.user_name,
+      current_id: state => state.profile.id,
       username: state => state.profileFromName.user_name,
       bio: state => state.profileFromName.description,
       avatar: state => state.profileFromName.avatar_url,

@@ -15,8 +15,7 @@ export const mutations = {
       delete_like(where: {_and: {post_id: {_eq: $postId}, user_id: {_eq: $userId}}}) {
         affected_rows
       }
-    }
-    `,
+    }`,
   UPLOAD_IMAGE: `mutation ($userId: String!, $image: String!) {
     uploadImage(image: $image userId: $userId) {
       created_at
@@ -30,5 +29,15 @@ export const mutations = {
         id
       }
     }
+  }`,
+  SUBSCRIBE: `mutation ($followee_id: uuid!) {
+      insert_follow(objects: {followee_id: $followee_id}) {
+        affected_rows
+      }
+    }`,
+  UNSUBSCRIBE: `mutation ($followee_id: uuid!) {
+      delete_follow(where: {followee_id: {_eq: $followee_id}}) {
+        affected_rows
+      }
   }`
 };
