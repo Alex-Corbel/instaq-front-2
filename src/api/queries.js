@@ -144,5 +144,69 @@ export const queries = {
         post_id
       }
     }
+  }
+  `,
+  search_users: ` query ($user_name: String!) {
+    user(where: {user_name: {_ilike: $user_name}}) {
+      id
+      user_name
+      avatar_url
+      followers_aggregate {
+        aggregate {
+          count(columns: follower_id)
+        }
+      }
+      follows_aggregate {
+        aggregate {
+          count(columns: followee_id)
+        }
+      }
+      posts_aggregate {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+  `,
+  search_posts: `query ($hashtag: String!) {
+    post(where: {content: {_ilike: $hashtag}}, order_by: {created_at: desc}) {
+      content
+      created_at
+      photo_url
+      thumbnail_url
+      id
+      status {
+        status_name
+      }
+      user {
+        avatar_url
+        user_name
+      }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
+      comments(limit: 1, order_by: {created_at: desc}) {
+        id
+        content
+        created_at
+        user {
+          avatar_url
+          id
+          user_name
+        }
+      }
+      likes_aggregate {
+        aggregate {
+          count
+        }
+      }
+      likes {
+        user_id
+        post_id
+      }
+    }
   }`
 };

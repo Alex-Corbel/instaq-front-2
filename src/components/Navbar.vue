@@ -9,8 +9,14 @@
         </div>
         <div class="hidden sm:flex sm:items-center">
           <div class="flex items-center border-b border-b-2 border-purple-500" id="search">
-            <font-awesome-icon :icon="['fas', 'search']" size="sm" class="mr-4"/>
-            <input type="text" :placeholder="$t('research')" class="outline-none">
+            <router-link :to="'/search/' + type + '/' + searchString">
+              <font-awesome-icon :icon="['fas', 'search']" size="sm" class="mr-4"/>
+            </router-link>
+            <input v-model="searchString" type="text" :placeholder="$t('research')" class="outline-none" @keyup="handleEnter">
+            <select v-model="type">
+              <option value="users">User(s)</option>
+              <option value="posts">Post(s)</option>
+            </select>
           </div>
         </div>
         <div class="flex justify-between items-center pt-2">
@@ -37,5 +43,18 @@ export default {
       user_name: state => state.profile.user_name
     })
   },
+   data() {
+    return {
+      searchString: undefined,
+      type: undefined
+    }
+  },
+  methods:{ 
+    handleEnter: function (e){
+      if (e.keyCode === 13) {
+        this.$router.push("/search/" + this.type + "/" + this.searchString);
+      }
+    }
+  }
 };
 </script>

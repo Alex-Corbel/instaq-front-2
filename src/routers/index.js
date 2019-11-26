@@ -8,6 +8,7 @@ import FirstSteps from "../views/FirstSteps.vue";
 import Splashscreen from "../views/Splashscreen.vue";
 import Settings from "../views/Settings.vue";
 import PostDetails from "../views/PostDetails.vue";
+import SearchResult from "../views/SearchResult.vue";
 
 Vue.use(Router);
 
@@ -52,6 +53,11 @@ export default new Router({
       path: "/post/:postId",
       name: "PostDetails",
       component: PostDetails
+    },
+    {
+      path: "/search/:type/:searchString",
+      name: "SearchResult",
+      component: SearchResult
     },
     {
       path: "*",

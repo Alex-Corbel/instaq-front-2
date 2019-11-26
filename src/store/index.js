@@ -12,6 +12,8 @@ export default new Vuex.Store({
     token: "",
     userId: "",
     timeline: [],
+    usersSearches: [],
+    postsSearches: {},
     timelineOffset: 0,
     currentProfilePageIndex: 1,
     profileFromName: {
@@ -73,6 +75,14 @@ export default new Vuex.Store({
         }
       }
     }
+  },
+  getters: {
+    getToken: state => state.token,
+    getUserId: state => state.user_id,
+    getTimeLine: state => state.timeline,
+    profile: state => state.profile,
+    getUsersSearches: state => state.usersSearches,
+    getPostsSearches: state => state.postsSearches
   },
   mutations: {
     [mutation_types.MUTATE_TOKEN](state, token) {
@@ -138,6 +148,12 @@ export default new Vuex.Store({
       const timeline = state.timeline;
       timeline[post.id] = post;
       state.timeline = timeline;
+    },
+    [mutation_types.MUTATE_USERSSEARCH](state, usersSearches) {
+      state.usersSearches = [...usersSearches];
+    },
+    [mutation_types.MUTATE_POSTSSEARCH](state, postsSearches) {
+      state.postsSearches = { ...postsSearches };
     }
   },
   actions: {
@@ -204,6 +220,7 @@ export default new Vuex.Store({
         user.data.insert_user.returning[0]
       );
     },
+
     async [action_types.SUBSCRIBE_TO_USER](context) {
       await fetchAsync(context.state.token, fetcher, mutations.SUBSCRIBE, {
         followee_id: context.state.profileFromName.id
@@ -215,6 +232,33 @@ export default new Vuex.Store({
         followee_id: context.state.profileFromName.id
       });
       context.commit(mutation_types.MUTATE_USER_SUBSCRIPTION, false);
+    },
+    async [action_types.SEARCH_USERS](context, user_name) {
+      const searchString = `%${user_name}%`;
+      const usersSearches = (
+        await fetchAsync(context.state.token, fetcher, queries.search_users, {
+          user_name: searchString
+        })
+      ).data.user;
+      context.commit(mutation_types.MUTATE_USERSSEARCH, usersSearches);
+    },
+    async [action_types.SEARCH_POSTS](context, hashtag) {
+      const searchString = `%${hashtag}%`;
+      const postsSearches = (
+        await fetchAsync(context.state.token, fetcher, queries.search_posts, {
+          hashtag: searchString
+        })
+      ).data.post;
+
+      const objectSearches = postsSearches.reduce(
+        (previous, current) => ({
+          ...previous,
+          [current.id]: current
+        }),
+        {}
+      );
+      context.commit(mutation_types.MUTATE_POSTSSEARCH, objectSearches);
+      return postsSearches;
     },
     [action_types.UPDATE_TOKEN]: (context, token) => {
       context.commit(mutation_types.MUTATE_TOKEN, token);

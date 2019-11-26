@@ -193,7 +193,8 @@ export default {
       postIsMark: this.isMark,
       duration: undefined,
       timeAgo: undefined,
-      commentInput: ""
+      commentInput: "",
+      postIsLike: this.isLike,
     };
   },
   mounted() {
@@ -231,10 +232,18 @@ export default {
   computed: {
     ...mapState({
       post: function(state) {
-        return state.timeline[this.id];
+        if(this.$router.currentRoute.path.includes('/search/posts/')){
+          return state.postsSearches[this.id]
+        }else{
+          return state.timeline[this.id]
+        } 
       },
       comments: function(state) {
-        return state.timeline[this.id].comments;
+        if(this.$router.currentRoute.path.includes('/search/posts/')){
+          return state.postsSearches[this.id].comments
+        }else{
+          return state.timeline[this.id].comments
+        }
       }
     })
   }
