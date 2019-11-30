@@ -85,6 +85,7 @@ export const queries = {
         }
       }
       comments(limit: 1, order_by: {created_at: desc}) {
+        id
         content
         created_at
         user {

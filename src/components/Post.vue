@@ -86,9 +86,7 @@
     </div>
     <div class="flex items-center m-2 justify-start font-semibold">
       {{ post.likes_aggregate.aggregate.count }}
-      {{
-          $t("likes").toLowerCase()
-      }}
+      {{ $t("likes").toLowerCase() }}
     </div>
     <div class="flex items-center mt-1 ml-2 justify-start">
       <router-link
@@ -100,8 +98,11 @@
         }}</span>
       </router-link>
       <span>{{ post.content }}</span>
+
+      <div class="flex items-center m-2 justify-start text-gray-500 font-light">
+        {{ this.computeAgoText() }}
+      </div>
     </div>
-    <div v-if="post.comments_aggregate.aggregate.count > 1">
       <div
         class="flex items-center mb-1 ml-2 justify-start text-gray-500 font-light"
       >
@@ -110,32 +111,30 @@
           {{ $tc("comment", 2) }}
         </router-link>
       </div>
-      <div class="flex items-center ml-2 justify-start">
-        <router-link
-          v-bind:to="'/profile/' + comments[0] ? comments[0].user.username : ''"
-          class="cursor-pointer mr-2"
-        >
-          <span class="font-bold leading-none hover:text-purple-600">{{
-            lastComment.user.username
-          }}</span>
-        </router-link>
-        <span>{{ comments[0] ? comments[0].user.content : "" }}</span>
-      </div>
-    </div>
-    <div class="flex items-center m-2 justify-start text-gray-500 font-light">
-      {{ this.getAgoText() }}
-    </div>
+      <Comment
+        v-for="comment of comments"
+        :key="comment.id"
+        :id="comment.id"
+        :content="comment.content"
+        :created_at="comment.created_at"
+        :user_name="comment.user.user_name"
+        :user_id="comment.user.id"
+        :user_avatar_url="comment.user.avatar_url"
+      />
     <div
       class="flex items-center m-2 p-2 justify-between border-t-2 border-purple-400"
     >
       <input
-        class="justofy-start w-full outline-none"
+        class="justify-start w-full outline-none"
         :placeholder="this.$t('add-comment')"
+        v-on:keyup.enter="submitComment()"
+        v-model="commentInput"
       />
       <font-awesome-icon
         :icon="['far', 'paper-plane']"
         size="lg"
         class="hover:text-purple-600 cursor-pointer"
+        v-on:click="submitComment()"
       />
     </div>
   </div>
@@ -143,10 +142,16 @@
 
 <script>
 import { mapState } from "vuex";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+import Comment from "./Comment";
 import { store } from "../main";
 import { action_types } from "../store/types";
 export default {
   name: "Post",
+  components: {
+    Comment
+  },
   props: {
     id: String,
     haveStories: Boolean
@@ -169,8 +174,14 @@ export default {
       },
       loaded: false,
       postIsMark: this.isMark,
-      duration: undefined
+      duration: undefined,
+      timeAgo: undefined,
+      commentInput: ""
     };
+  },
+  mounted() {
+    TimeAgo.addLocale(en);
+    this.timeAgo = new TimeAgo("en-US");
   },
   methods: {
     switchBookmark: function() {
@@ -183,66 +194,26 @@ export default {
         postId: this.post.id
       });
     },
-    getAgoText: function() {
-      const current_date = new Date();
-
-      let seconds = Math.floor((current_date - this.date) / 1000);
-      let minutes = Math.floor(seconds / 60);
-      let hours = Math.floor(minutes / 60);
-      let days = Math.floor(hours / 24);
-      let weeks = Math.floor(days / 7);
-
-      hours = hours - days * 24;
-      minutes = minutes - days * 24 * 60 - hours * 60;
-      seconds = seconds - days * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60;
-      const monthNames = [
-        "january",
-        "february",
-        "march",
-        "april",
-        "may",
-        "june",
-        "july",
-        "august",
-        "september",
-        "october",
-        "november",
-        "december"
-      ];
-
-      if (weeks >= 1) {
-        return (
-          this.date.getDay() + " " + this.$t(monthNames[this.date.getMonth()])
-        );
-      } else if (days >= 1) {
-        let day_text = null;
-        if (days == 1) day_text = this.$tc("day", 1);
-        else day_text = this.$tc("day", 2);
-        let duration = days + " " + day_text;
-        return this.$t("ago", { duration: duration });
-      } else if (hours >= 1) {
-        let hour_text = null;
-        if (hours == 1) hour_text = this.$tc("hour", 1);
-        else hour_text = this.$tc("hour", 2);
-        let duration = hours + " " + hour_text;
-        return this.$t("ago", { duration: duration });
-      } else if (minutes >= 1) {
-        let minute_text = null;
-        if (minutes == 1) minute_text = this.$tc("minute", 1);
-        else minute_text = this.$tc("minute", 2);
-        let duration = minutes + " " + minute_text;
-        return this.$t("ago", { duration: duration });
-      }
+    computeAgoText: function() {
+      return this.timeAgo
+        ? this.timeAgo.format(new Date(this.post.created_at).getTime())
+        : "";
     },
-    changeThumbnail: function () {
-      this.loaded = true
-      this.imageClass.hidden= false
+    submitComment: function() {
+      store.dispatch(action_types.SUBMIT_COMMENT, {
+        postId: this.post.id,
+        content: this.commentInput
+      })
+      this.commentInput=""
     }
   },
   computed: {
     ...mapState({
       post: function(state) {
-        return state.timeline.filter(post => post.id === this.id)[0];
+        return state.timeline[this.id];
+      },
+      comments: function(state) {
+        return state.timeline[this.id].comments;
       }
     })
   }
