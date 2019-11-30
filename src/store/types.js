@@ -9,7 +9,8 @@ export const action_types = {
   UPDATE_CURRENT_PROFILE_PAGE_INDEX: "updateCurrentProfilePageIndex",
   UPDATE_POST_LIKE: "updatePostLike",
   SUBSCRIBE_TO_USER: "subscribeToUser",
-  UNSUBSCRIBE_TO_USER: "unsubscribeToUser"
+  UNSUBSCRIBE_TO_USER: "unsubscribeToUser",
+  SUBMIT_COMMENT: "submitComment"
 };
 
 export const mutation_types = {
@@ -22,5 +23,6 @@ export const mutation_types = {
   MUTATE_CURRENT_PROFILE_PAGE_INDEX: "setCurrentProfilePageIndex",
   MUTATE_POST_LIKE: "setPostLike",
   MUTATE_USER_SUBSCRIPTION: "setUserSubscription",
-  MUTATE_POST_LIKE_COUNT: "setPostLikeCount"
+  MUTATE_POST_LIKE_COUNT: "setPostLikeCount",
+  MUTATE_POST_ADD_COMMENT: "setPostAddComments"
 };

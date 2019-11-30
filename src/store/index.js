@@ -17,7 +17,6 @@ export default new Vuex.Store({
     profileFromName: {
       id: "",
       user_name: "",
-      user_id: "",
       firstname: "",
       lastname: "",
       description: "",
@@ -50,7 +49,6 @@ export default new Vuex.Store({
     profile: {
       id: "",
       user_name: "",
-      user_id: "",
       firstname: "",
       lastname: "",
       description: "",
@@ -76,12 +74,6 @@ export default new Vuex.Store({
       }
     }
   },
-  getters: {
-    getToken: state => state.token,
-    getUserId: state => state.user_id,
-    getTimeLine: state => state.timeline,
-    profile: state => state.profile
-  },
   mutations: {
     [mutation_types.MUTATE_TOKEN](state, token) {
       state.token = token;
@@ -90,21 +82,16 @@ export default new Vuex.Store({
       state.userId = userId;
     },
     [mutation_types.MUTATE_TIMELINE](state, timeline) {
-      state.timeline = [...state.timeline, ...timeline];
+      state.timeline = { ...state.timeline, ...timeline };
     },
     [mutation_types.MUTATE_TIMELINE_OFFSET](state, offset) {
       state.timelineOffset = offset;
     },
     [mutation_types.MUTATE_POST_LIKE](state, { postId, likeState }) {
       const timeline = state.timeline;
-      timeline.forEach(post => {
-        if (post.id !== postId) {
-          return;
-        }
-        post.likes = likeState
-          ? []
-          : [{ post_id: postId, user_id: state.userId }];
-      });
+      timeline[postId].likes = likeState
+        ? []
+        : [{ post_id: postId, user_id: state.userId }];
       state.timeline = timeline;
     },
     [mutation_types.MUTATE_PROFILE](state, profile) {
@@ -112,12 +99,7 @@ export default new Vuex.Store({
     },
     [mutation_types.MUTATE_POST_LIKE_COUNT](state, { postId, count }) {
       const timeline = state.timeline;
-      timeline.forEach(post => {
-        if (post.id !== postId) {
-          return;
-        }
-        post.likes_aggregate.aggregate.count = count;
-      });
+      timeline[postId].likes_aggregate.aggregate.count = count;
       state.timeline = timeline;
     },
     [mutation_types.MUTATE_PROFILE_FROM_NAME](state, profileFromName) {
@@ -134,6 +116,11 @@ export default new Vuex.Store({
       state.profileFromName.followers_aggregate.aggregate.count += isSubscribe
         ? 1
         : -1;
+    },
+    [mutation_types.MUTATE_POST_ADD_COMMENT](state, { postId, comment }) {
+      const timeline = state.timeline;
+      timeline[postId].comments = [...timeline[postId].comments, ...comment];
+      state.timeline = timeline;
     }
   },
   actions: {
@@ -144,7 +131,14 @@ export default new Vuex.Store({
           offset: context.state.timelineOffset
         })
       ).data.post;
-      context.commit(mutation_types.MUTATE_TIMELINE, timeline);
+      const objectTimeline = timeline.reduce(
+        (previous, current) => ({
+          ...previous,
+          [current.id]: current
+        }),
+        {}
+      );
+      context.commit(mutation_types.MUTATE_TIMELINE, objectTimeline);
       return timeline;
     },
     [action_types.UPDATE_TIMELINE_OFFSET](context, offset) {
@@ -158,9 +152,8 @@ export default new Vuex.Store({
         postId,
         likeState
       });
-      const currentCount = context.state.timeline.find(
-        post => post.id === postId
-      ).likes_aggregate.aggregate.count;
+      const currentCount =
+        context.state.timeline[postId].likes_aggregate.aggregate.count;
       context.commit(mutation_types.MUTATE_POST_LIKE_COUNT, {
         postId,
         count: likeState ? currentCount - 1 : currentCount + 1
@@ -229,6 +222,21 @@ export default new Vuex.Store({
       context.commit(
         mutation_types.MUTATE_CURRENT_PROFILE_PAGE_INDEX,
         currentProfilePageIndex
+      );
+    },
+    [action_types.SUBMIT_COMMENT]: async (context, { postId, content }) => {
+      const comment = await fetchAsync(
+        context.state.token,
+        fetcher,
+        mutations.SUBMIT_COMMENT,
+        {
+          postId,
+          content
+        }
+      );
+      context.commit(
+        mutation_types.MUTATE_POST_ADD_COMMENT,
+        { comment: comment.data.insert_comment.returning, postId } || undefined
       );
     }
   },

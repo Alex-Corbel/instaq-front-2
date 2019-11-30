@@ -39,5 +39,19 @@ export const mutations = {
       delete_follow(where: {followee_id: {_eq: $followee_id}}) {
         affected_rows
       }
+  }`,
+  SUBMIT_COMMENT: `mutation ($postId: uuid!, $content: String!) {
+    insert_comment(objects: {post_id: $postId, content: $content}) {
+      returning {
+        id
+        created_at
+        content
+        user {
+          id
+          user_name
+          avatar_url
+        }
+      }
+    }
   }`
 };
