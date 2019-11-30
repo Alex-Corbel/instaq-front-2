@@ -8,7 +8,9 @@
       <Post :id="post.id" :haveStories="false" />
     </div>
     <InfiniteLoading spinner="spiral" @infinite="infiniteHandler">
-      <div slot="no-more">___</div>
+      <div slot="spinner">Loading...</div>
+      <div slot="no-more">No more posts</div>
+      <div slot="no-results">No more posts</div>
     </InfiniteLoading>
     <Toast
       :toast="{ class: toastClass }"
