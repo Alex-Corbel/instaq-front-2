@@ -205,6 +205,10 @@ export default {
         content: this.commentInput
       })
       this.commentInput=""
+    },
+    changeThumbnail: function () {
+      this.loaded = true
+      this.imageClass.hidden= false
     }
   },
   computed: {
