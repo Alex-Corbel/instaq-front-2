@@ -27,15 +27,18 @@
       </div>
       <p class="mt-2 mb-2 text-gray-600">{{ bio }}</p>
       <div v-if="username && username.toLowerCase() === current_username.toLowerCase()">
-        <button class="w-full bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+        <button class="w-4/5 bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded">
           <router-link v-bind:to="'/create-post'">{{$t('create_post')}}</router-link>
         </button>
+        <router-link v-bind:to="'/settings'" class="pl-4 w-1/5">
+          <font-awesome-icon :icon="['fas', 'user-cog']" size="lg" class="hover:text-purple-600 cursor-pointer font-semibold hover:text-white"/>
+        </router-link>
       </div>
       <div v-else>
         <button v-on:click="unsubscribe" v-if="isSubscribe" class="w-full bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded">
           {{$t('unfollow')}}
         </button>
-        <button v-on:click="subscribe" v-else class="w-full bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+        <button v-on:click="subscribe" v-else class="w-full bg-blue-500 hover:bg-purple-400 text-white font-bold py-2 px-4 border-b-4 border-purple-700 hover:border-purple-500 rounded">
           {{$t('follow')}}
         </button>        
       </div>

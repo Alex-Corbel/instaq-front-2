@@ -13,6 +13,13 @@
   "follow": "Follow",
   "follower": "Follower | Followers",
   "following": "Following",
+  "email": "Email Address",
+  "firstname": "First Name",
+  "lastname": "Last Name",
+  "tagname": "Tag Name",
+  "profile_picture": "Profile Pricture",
+  "description": "Description",
+  "save": "Save",
   "minute": "Minute | Minutes",
   "january": "January",
   "february": "February",
@@ -35,6 +42,10 @@
   "not_explicit": "Picture not explicit",
   "server_error": "Server has encountered error",
   "publish": "Publish",
+  "save_settings": {
+    "server_error": "Error during save",
+    "creation": "Save settings"
+  },
   "new_post": {
     "title": "New publication",
     "creation": "Create a new publication",

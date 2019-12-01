@@ -24,5 +24,6 @@ export const mutation_types = {
   MUTATE_POST_LIKE: "setPostLike",
   MUTATE_USER_SUBSCRIPTION: "setUserSubscription",
   MUTATE_POST_LIKE_COUNT: "setPostLikeCount",
-  MUTATE_POST_ADD_COMMENT: "setPostAddComments"
+  MUTATE_POST_ADD_COMMENT: "setPostAddComments",
+  MUTATE_SETTINGS: "setSettings"
 };

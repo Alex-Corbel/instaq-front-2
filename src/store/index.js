@@ -105,6 +105,11 @@ export default new Vuex.Store({
     [mutation_types.MUTATE_PROFILE_FROM_NAME](state, profileFromName) {
       state.profileFromName = { ...state.profileFromName, ...profileFromName };
     },
+    [mutation_types.MUTATE_SETTINGS](state, tagname, avatar_url, description) {
+      state.profile.user_name = tagname;
+      state.profile.avatar_url = avatar_url;
+      state.profile.description = description;
+    },
     [mutation_types.MUTATE_CURRENT_PROFILE_PAGE_INDEX](
       state,
       currentProfilePageIndex

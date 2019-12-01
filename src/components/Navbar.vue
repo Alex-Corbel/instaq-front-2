@@ -19,7 +19,7 @@
           <router-link :to="'/create-post/'">
             <font-awesome-icon :icon="['far', 'plus-square']" size="lg" class="text-gray-800 hover:text-purple-600 mr-4 cursor-pointer"/>
           </router-link>
-          <router-link :to="'/profile/' + $keycloak.userName">
+          <router-link :to="'/profile/' + this.user_name">
             <font-awesome-icon :icon="['far', 'user']" size="lg" class="text-gray-800 hover:text-purple-600 mr-4 cursor-pointer"/>
           </router-link>
         </div>
@@ -29,7 +29,13 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  computed: {
+    ...mapState({
+      user_name: state => state.profile.user_name
+    })
+  },
 };
 </script>

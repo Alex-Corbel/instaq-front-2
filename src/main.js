@@ -8,7 +8,8 @@ import {
   faSearch,
   faHeart,
   faBookmark,
-  faPowerOff
+  faPowerOff,
+  faUserCog
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faHeart as farHeart,
@@ -42,7 +43,8 @@ library.add([
   faPaperPlane,
   faPowerOff,
   faPlusSquare,
-  faTimesCircle
+  faTimesCircle,
+  faUserCog
 ]);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

@@ -6,6 +6,8 @@ import ErrorPage from "../views/Error.vue";
 import CreatePost from "../views/CreatePost.vue";
 import FirstSteps from "../views/FirstSteps.vue";
 import Splashscreen from "../views/Splashscreen.vue";
+import Settings from "../views/Settings.vue";
+
 Vue.use(Router);
 
 export default new Router({
@@ -14,6 +16,11 @@ export default new Router({
       path: "/splashscreen",
       name: "Splashscreen",
       component: Splashscreen
+    },
+    {
+      path: "/settings",
+      name: "Settings",
+      component: Settings
     },
     {
       path: "/first-step",

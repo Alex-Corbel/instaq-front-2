@@ -53,5 +53,13 @@ export const mutations = {
         }
       }
     }
-  }`
+  }`,
+  UPDATE_SETTINGS: `mutation ($id: uuid!, $avatar_url: String!, $description: String!, $user_name: String!){
+    update_user(where: {id: {_eq: $id}}, _set: {avatar_url: $avatar_url, description: $description, user_name: $user_name}) {
+      returning {
+        id
+      }
+    }
+  }
+  `
 };
