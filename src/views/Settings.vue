@@ -109,7 +109,28 @@ export default {
     async updateSettings() {
       this.creatingPost = true;
       if (!this.file || this.file === "") {
-        this.error = this.$t("new_post.error.no_image_selected");
+        const tagname = document.getElementById("tagname").value
+        const description =  document.getElementById("description").value
+        const res = await fetchAsync(
+          store.state.token,
+          fetcher,
+          mutations.UPDATE_SETTINGS,
+          {
+            id: store.state.userId,
+            user_name: tagname,
+            avatar_url: this.avatar_url,
+            description
+          }
+        );
+        if (res.data.update_user.returning[0].id == this.userId) {
+          store.commit(
+            mutation_types.MUTATE_SETTINGS,
+            tagname,
+            this.avatar_url,
+            description
+          );
+          this.$router.push("/#/profile/"+tagname);
+        }
       } else if (!this.isFileImage(this.file)) {
         this.error = this.$t("new_post.error.bad_file_type");
       } else {
@@ -126,16 +147,26 @@ export default {
             } else {
               this.toastMsg = this.$t("server_error");
             }
-          }else{
+          } else {
             const res = await fetchAsync(
               store.state.token,
               fetcher,
               mutations.UPDATE_SETTINGS,
-              { id: store.state.userId, user_name: this.tagname, avatar_url: response.data.uploadImage.url, description: this.description}
+              {
+                id: store.state.userId,
+                user_name: this.tagname,
+                avatar_url: response.data.uploadImage.url,
+                description: this.description
+              }
             );
-            store.commit(mutation_types.MUTATE_SETTINGS, this.tagname, response.data.uploadImage.url, this.description)
-            if(res.data.update_user.returning[0].id == this.userId){
-              this.$router.push("/#/profile/"+this.tagname);
+            if (res.data.update_user.returning[0].id == this.userId) {
+              store.commit(
+                mutation_types.MUTATE_SETTINGS,
+                this.tagname,
+                response.data.uploadImage.url,
+                this.description
+              );
+              this.$router.push("/#/profile/" + this.tagname);
             }
           }
         });
@@ -151,7 +182,7 @@ export default {
       setTimeout(() => {
         this.toastClass["ew-toast-show"] = false;
       }, 2000);
-    },
+    }
   },
   computed: {
     ...mapState({
@@ -162,8 +193,8 @@ export default {
     })
   },
   watch: {
-    avatar_url(value){
-      this.url = value
+    avatar_url(value) {
+      this.url = value;
     }
   }
 };
