@@ -187,7 +187,10 @@ export default new Vuex.Store({
         mutations.INSERT_USER,
         { user_name: user_name }
       );
-      context.commit(mutation_types.MUTATE_PROFILE, user);
+      context.commit(
+        mutation_types.MUTATE_PROFILE,
+        user.data.insert_user.returning[0]
+      );
     },
     async [action_types.SUBSCRIBE_TO_USER](context) {
       await fetchAsync(context.state.token, fetcher, mutations.SUBSCRIBE, {
