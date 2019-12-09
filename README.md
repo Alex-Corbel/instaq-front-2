@@ -1,29 +1,35 @@
-# instaq-front
+<h1 align="center">Welcome to instaq-front 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
+</p>
 
-## Project setup
-```
+> Front-end code for the InstaQ app
+
+### 🏠 [Homepage](https://front.k8s.d0do.fr)
+
+### ✨ [Demo](https://front.k8s.d0do.fr)
+
+## Install
+
+```sh
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
+## Usage
+
+```sh
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Run tests
 
-### Run your tests
-```
+```sh
 npm run test
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Show your support
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Give a ⭐️ if this project helped you!
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
