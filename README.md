@@ -12,6 +12,8 @@
 ## Install
 
 ```sh
+git clone git@gitlab.com:instaq-epsi/instaq-front.git
+cd instaq-front
 npm install
 ```
 
