@@ -104,7 +104,45 @@ export const queries = {
         post_id
       }
     }
-  }
-  
-  `
+  }  
+  `,
+  postDetails: `query ($postId: uuid!) {
+    post(where: {id: { _eq: $postId}}) {
+      content
+      created_at
+      photo_url
+      id
+      status {
+        status_name
+      }
+      user {
+        avatar_url
+        user_name
+      }
+      comments_aggregate {
+        aggregate {
+          count
+        }
+      }
+      comments(order_by: {created_at: asc}) {
+        id
+        content
+        created_at
+        user {
+          avatar_url
+          id
+          user_name
+        }
+      }
+      likes_aggregate {
+        aggregate {
+          count
+        }
+      }
+      likes {
+        user_id
+        post_id
+      }
+    }
+  }`
 };

@@ -10,7 +10,8 @@ export const action_types = {
   UPDATE_POST_LIKE: "updatePostLike",
   SUBSCRIBE_TO_USER: "subscribeToUser",
   UNSUBSCRIBE_TO_USER: "unsubscribeToUser",
-  SUBMIT_COMMENT: "submitComment"
+  SUBMIT_COMMENT: "submitComment",
+  RETRIEVE_POST_DETAIL: "retrievePostDetail"
 };
 
 export const mutation_types = {
@@ -25,5 +26,6 @@ export const mutation_types = {
   MUTATE_USER_SUBSCRIPTION: "setUserSubscription",
   MUTATE_POST_LIKE_COUNT: "setPostLikeCount",
   MUTATE_POST_ADD_COMMENT: "setPostAddComments",
-  MUTATE_SETTINGS: "setSettings"
+  MUTATE_SETTINGS: "setSettings",
+  MUTATE_POST_UPDATE_DETAILS: "setPostDetails"
 };

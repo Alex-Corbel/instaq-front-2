@@ -1,10 +1,8 @@
 <template>
-  <div class="max-w-lg overflow-hidden shadow-lg my-2 container">
+  <div v-if="post" class="max-w-lg overflow-hidden shadow-lg my-2 container">
     <div class="flex items-center">
       <router-link
-        v-bind:to="
-          (haveStories ? '/stories/' : '/profile/') + post.user.user_name
-        "
+        v-bind:to="`/profile/${post.user.user_name}`"
         class="cursor-pointer"
       >
         <img :src="post.user.avatar_url" :class="avatarClasses" />
@@ -18,8 +16,12 @@
         }}</span>
       </router-link>
     </div>
-    <img class="w-full blurry" :src="post.thumbnail_url" v-if="!loaded">
-    <img :class="imageClass" :src="post.photo_url" :onload="changeThumbnail()">
+    <img class="w-full blurry" :src="post.thumbnail_url" v-if="!loaded" />
+    <img
+      :class="imageClass"
+      :src="post.photo_url"
+      :onload="changeThumbnail()"
+    />
     <div class="flex items-center m-2 justify-between">
       <div class="justify-start">
         <font-awesome-icon
@@ -103,6 +105,8 @@
         {{ this.computeAgoText() }}
       </div>
     </div>
+
+    <div v-if="standalone === false">
       <div
         class="flex items-center mb-1 ml-2 justify-start text-gray-500 font-light"
       >
@@ -111,6 +115,18 @@
           {{ $tc("comment", 2) }}
         </router-link>
       </div>
+      <Comment
+        v-if="comments[0]"
+        :key="comments[0].id"
+        :id="comments[0].id"
+        :content="comments[0].content"
+        :created_at="comments[0].created_at"
+        :user_name="comments[0].user.user_name"
+        :user_id="comments[0].user.id"
+        :user_avatar_url="comments[0].user.avatar_url"
+      />
+    </div>
+    <div v-else>
       <Comment
         v-for="comment of comments"
         :key="comment.id"
@@ -121,6 +137,7 @@
         :user_id="comment.user.id"
         :user_avatar_url="comment.user.avatar_url"
       />
+    </div>
     <div
       class="flex items-center m-2 p-2 justify-between border-t-2 border-purple-400"
     >
@@ -154,12 +171,12 @@ export default {
   },
   props: {
     id: String,
-    haveStories: Boolean
+    standalone: Boolean
   },
   data() {
     return {
       imageClass: {
-        "hidden": true,
+        hidden: true,
         "w-full": true
       },
       avatarClasses: {
@@ -168,9 +185,9 @@ export default {
         "rounded-full": true,
         "m-2": true,
         "mr-4": true,
-        "p-1": true,
-        "border-purple-500": this.haveStories,
-        "border-2": this.haveStories
+        "p-1": true
+        // "border-purple-500": this.haveStories,
+        // "border-2": this.haveStories
       },
       loaded: false,
       postIsMark: this.isMark,
@@ -203,12 +220,12 @@ export default {
       store.dispatch(action_types.SUBMIT_COMMENT, {
         postId: this.post.id,
         content: this.commentInput
-      })
-      this.commentInput=""
+      });
+      this.commentInput = "";
     },
-    changeThumbnail: function () {
-      this.loaded = true
-      this.imageClass.hidden= false
+    changeThumbnail: function() {
+      this.loaded = true;
+      this.imageClass.hidden = false;
     }
   },
   computed: {

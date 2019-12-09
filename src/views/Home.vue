@@ -5,7 +5,7 @@
       v-for="post in posts"
       :key="post.id"
     >
-      <Post :id="post.id" :haveStories="false" />
+      <Post :id="post.id" :standalone="false" />
     </div>
     <InfiniteLoading spinner="spiral" @infinite="infiniteHandler">
       <div slot="spinner">Loading...</div>

@@ -7,6 +7,7 @@ import CreatePost from "../views/CreatePost.vue";
 import FirstSteps from "../views/FirstSteps.vue";
 import Splashscreen from "../views/Splashscreen.vue";
 import Settings from "../views/Settings.vue";
+import PostDetails from "../views/PostDetails.vue";
 
 Vue.use(Router);
 
@@ -46,6 +47,11 @@ export default new Router({
       path: "/create-post",
       name: "CreatePost",
       component: CreatePost
+    },
+    {
+      path: "/post/:postId",
+      name: "PostDetails",
+      component: PostDetails
     },
     {
       path: "*",

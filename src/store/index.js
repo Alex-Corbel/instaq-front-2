@@ -124,7 +124,19 @@ export default new Vuex.Store({
     },
     [mutation_types.MUTATE_POST_ADD_COMMENT](state, { postId, comment }) {
       const timeline = state.timeline;
-      timeline[postId].comments = [...timeline[postId].comments, ...comment];
+      state.timeline = {
+        ...timeline,
+        [postId]: {
+          ...timeline[postId],
+          comments: [...timeline[postId].comments, ...comment].sort(
+            (c1, c2) => new Date(c1.created_at) >= new Date(c2.created_at)
+          )
+        }
+      };
+    },
+    [mutation_types.MUTATE_POST_UPDATE_DETAILS](state, post) {
+      const timeline = state.timeline;
+      timeline[post.id] = post;
       state.timeline = timeline;
     }
   },
@@ -246,6 +258,21 @@ export default new Vuex.Store({
         mutation_types.MUTATE_POST_ADD_COMMENT,
         { comment: comment.data.insert_comment.returning, postId } || undefined
       );
+    },
+    [action_types.RETRIEVE_POST_DETAIL]: async (context, postId) => {
+      const post = await fetchAsync(
+        context.state.token,
+        fetcher,
+        queries.postDetails,
+        {
+          postId
+        }
+      );
+      context.commit(
+        mutation_types.MUTATE_POST_UPDATE_DETAILS,
+        post.data.post[0]
+      );
+      return true;
     }
   },
   modules: {}
