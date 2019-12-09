@@ -40,7 +40,7 @@
   "description": "Description",
   "hashtag": "Hashtag | Hashtags",
   "unknown_user": "Utilisateur inconnu",
-  "not_explicit": "La photo n'est pas explicite",
+  "not_explicit": "La photo est pas explicite",
   "server_error": "Le serveur a rencontré une erreur",
   "publish": "Publier",
   "save_settings": {

@@ -39,7 +39,7 @@
   "security": "Security",
   "hashtag": "Hashtag | Hashtags",
   "unknown_user": "Unknown user",
-  "not_explicit": "Picture not explicit",
+  "not_explicit": "Picture is explicit",
   "server_error": "Server has encountered error",
   "publish": "Publish",
   "save_settings": {

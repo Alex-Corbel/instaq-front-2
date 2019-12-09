@@ -66,7 +66,7 @@ export const queries = {
     }
   }`,
   timeline: `query ($user_id: uuid!, $offset: Int!) {
-    post(where: {user: {followers: {followers: {id: {_eq: $user_id}}}}}, limit: 10, offset: $offset) {
+    post(where: {user: {followers: {followers: {id: {_eq: $user_id}}}}}, limit: 10, offset: $offset, order_by: {created_at: desc}) {
       content
       created_at
       photo_url
