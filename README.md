@@ -49,13 +49,6 @@ A stich of hasura as been created in typescript (NodeJs) which call google visio
 <br>
 Front permanently request keycloak to renew token when it is necessary.
 
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
-
 ## Built With
 
 * [Vue.js](https://vuejs.org/) - The JS framework used
@@ -65,11 +58,13 @@ _This README was generated with ❤️ by [readme-md-generator](https://github.c
 
 Version : 0.0.1
 
-## Authors
-
-* **Alex Corbel** - **Mael Chauvet** - **Clément Fassot** - **Louis Perdereau** - **Pablo Colson**
-*Initial work* - [PurpleBooth](https://gitlab.com/instaq-epsi/instaq-front)
-
 ## Inspiration
 
 * [Instagram](https://www.instagram.com/?hl=fr) - Social Network
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
