@@ -55,3 +55,21 @@ Give a ⭐️ if this project helped you!
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+
+## Built With
+
+* [Vue.js](https://vuejs.org/) - The JS framework used
+* [Tailwind CSS](https://tailwindcss.com/) - The CSS framework used
+
+## Version
+
+Version : 0.0.1
+
+## Authors
+
+* **Alex Corbel** - **Mael Chauvet** - **Clément Fassot** - **Louis Perdereau** - **Pablo Colson**
+*Initial work* - [PurpleBooth](https://gitlab.com/instaq-epsi/instaq-front)
+
+## Inspiration
+
+* [Instagram](https://www.instagram.com/?hl=fr) - Social Network
