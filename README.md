@@ -30,8 +30,6 @@ vue-cli-service test:unit --passWithNoTests
 
 ## Author
 
-👤 **Shyndard**
-
 * Github: [@ked57](https://github.com/Ked57)
 * Github: [@Shyndard](https://github.com/Shyndard)
 * Github: [@lperdereau](https://github.com/lperdereau)
